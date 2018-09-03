@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>box-sizing属性 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="* { box-sizing: border-box; } 的作用 box-sizing:border-box; 是CSS3新增属性，了解这个属性，我们先从块级元素的盒子大小说起，通常一个块级元素实际所占宽高度=外边距（margin）+ 边界宽度(border-width) + 内边距（padding）+ 高度（height） /  宽度（width）如果设置了border-box，实际所占宽高度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="box-sizing属性">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/CSS3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="* { box-sizing: border-box; } 的作用 box-sizing:border-box; 是CSS3新增属性，了解这个属性，我们先从块级元素的盒子大小说起，通常一个块级元素实际所占宽高度=外边距（margin）+ 边界宽度(border-width) + 内边距（padding）+ 高度（height） /  宽度（width）如果设置了border-box，实际所占宽高度">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-03-25T01:36:22.641Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="box-sizing属性">
+<meta name="twitter:description" content="* { box-sizing: border-box; } 的作用 box-sizing:border-box; 是CSS3新增属性，了解这个属性，我们先从块级元素的盒子大小说起，通常一个块级元素实际所占宽高度=外边距（margin）+ 边界宽度(border-width) + 内边距（padding）+ 高度（height） /  宽度（width）如果设置了border-box，实际所占宽高度">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CSS3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/14/CSS3/" class="article-date">
+  <time datetime="2018-03-14T14:35:43.000Z" itemprop="datePublished">2018-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      box-sizing属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="box-sizing-border-box-的作用"><a href="#box-sizing-border-box-的作用" class="headerlink" title="* { box-sizing: border-box; } 的作用"></a>* { box-sizing: border-box; } 的作用</h1><blockquote>
+<p>box-sizing:border-box; 是CSS3新增属性，了解这个属性，我们先从块级元素的盒子大小说起，通常一个块级元素实际所占宽高度=外边距（margin）+ 边界宽度(border-width) + 内边距（padding）+ 高度（height） /  宽度（width）<br>如果设置了border-box，实际所占宽高度 = 设置的高度（height）/ 设置的宽度（width）+ 外边距（margin）<br>你运行下面的代码就很好理解了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">#div1 &#123;box-sizing:border-box; height:200px; width:200px; background:red; margin:10px; border:1px solid #000; padding:20px;&#125;</span><br><span class="line">#div2 &#123;box-sizing:content-box; height:200px; width:200px; background:red; margin:10px; border:1px solid #000; padding:20px;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"> </span><br><span class="line">&lt;div id=&quot;div1&quot;&gt;border-box&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;div2&quot;&gt;content-box&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h1><ol>
+<li>利于页面布局和排版</li>
+<li>固定了盒子模型，border的改变也不会影响到盒子模型的大小</li>
+<li>简化了计算位置的问题</li>
+<li>更符合我们日常对盒子的认识</li>
+</ol>
+<hr>
+<h2 id="END"><a href="#END" class="headerlink" title="- END -"></a>- END -</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/14/CSS3/" data-id="cjllmk5qr0003e8i4pg24p911" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/14/画出自适应皮卡丘/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          画出自适应皮卡丘
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/13/github的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Github的使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/03/JavaScript函数及作用域/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/15/在线ToDoList/">在线ToDoList应用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/画出自适应皮卡丘/">画出自适应皮卡丘</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/CSS3/">box-sizing属性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/13/github的使用/">Github的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

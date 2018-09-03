@@ -62,34 +62,109 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-my-site" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JavaScript函数及作用域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/03/my-site/" class="article-date">
-  <time datetime="2018-09-03T01:17:52.000Z" itemprop="datePublished">2018-09-03</time>
+    <a href="/2018/09/03/JavaScript函数及作用域/" class="article-date">
+  <time datetime="2018-09-03T01:46:11.683Z" itemprop="datePublished">2018-09-03</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/03/my-site/">my_site</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="张铭钦"><a href="#张铭钦" class="headerlink" title="张铭钦"></a>张铭钦</h1><p>测试</p>
+        <h1 id="JavaScript函数及作用域"><a href="#JavaScript函数及作用域" class="headerlink" title="JavaScript函数及作用域"></a>JavaScript函数及作用域</h1><p>[TOC]</p>
+<h3 id="1-函数"><a href="#1-函数" class="headerlink" title="1. 函数"></a>1. 函数</h3><blockquote>
+<p>函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余</p>
+</blockquote>
+<ul>
+<li><p>函数声明：<code>function 函数名((){ //代码块 }</code></p>
+<ul>
+<li>函数名其实就是变量名，只是习惯上称之为函数名</li>
+</ul>
+</li>
+<li><p>调用函数（执行函数的代码块）: <code>函数名(()</code></p>
+</li>
+</ul>
+<p>函数表达式: <code>var fn = function() {};</code></p>
+<h3 id="2-函数传参"><a href="#2-函数传参" class="headerlink" title="2. 函数传参"></a>2. 函数传参</h3><blockquote>
+<p>函数的参数的传递本质：实参给形参赋值</p>
+</blockquote>
+<ul>
+<li>函数名(实际参数，简称实参)</li>
+<li><p>函数声明 <code>function 函数名(形式参数，简称形参){  函数体代码  }</code></p>
+</li>
+<li><p>调用函数 函数名(实际参数，简称实参)</p>
+</li>
+</ul>
+<h3 id="3-函数返回值"><a href="#3-函数返回值" class="headerlink" title="3. 函数返回值"></a>3. 函数返回值</h3><blockquote>
+<p>函数将自身的计算结果返回给调用者</p>
+</blockquote>
+<p>return返回值时</p>
+<ol>
+<li>如果一个函数没有return关键字，默认返回值是undefined</li>
+<li>如果一个函数有return关键字，但是后面没有值，返回值是undefined</li>
+<li>return关键字后面的代码都不会执行</li>
+<li>如果return关键字后面有值,此时函数的返回值就是return后面的值</li>
+</ol>
+<p>函数的几种形态:</p>
+<ul>
+<li>无参无返回函数：用的不多   <ul>
+<li>单纯的执行一段代码</li>
+</ul>
+</li>
+<li>无参有返回函数：用的不多</li>
+<li>有参无返回：用的不多的</li>
+<li>有参有返回值：用的比较多    <ul>
+<li>函数接收调用者传递的参数来进行运算来实现自己的功能，然后将实现后的结果返回给调用者</li>
+</ul>
+</li>
+</ul>
+<h3 id="函数的"><a href="#函数的" class="headerlink" title="函数的"></a>函数的</h3><h3 id="4-作用域"><a href="#4-作用域" class="headerlink" title="4. 作用域"></a>4. 作用域</h3><blockquote>
+<p>变量起作用的范围</p>
+</blockquote>
+<ul>
+<li>全局作用域<ul>
+<li>变量在任何地方起作用,在函数外声明</li>
+</ul>
+</li>
+<li>局部作用域<ul>
+<li>变量只在函数内部起作用,在函数内部声明<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.全局变量</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params">  </span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log ( a );  <span class="comment">//10</span></span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.局部变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span> (<span class="params">  </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="built_in">console</span>.log ( num );  <span class="comment">//100</span></span><br><span class="line">&#125;</span><br><span class="line">fn1();</span><br><span class="line"><span class="built_in">console</span>.log ( num );  <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-作用域链"><a href="#5-作用域链" class="headerlink" title="5. 作用域链"></a>5. 作用域链</h3><ul>
+<li>作用域这么来的<ul>
+<li>默认情况下，我们的js代码处于全局作用域，当我们声明一个函数时，此时函数体会开辟一个局部作用域， 如果我们在这个函数体中又声明一个函数，那么又会开辟一个新的局部作用域，以此类推，就会形成一个作用域链</li>
+</ul>
+</li>
+<li>变量在作用域链上的访问规则<ul>
+<li>就近原则：访问变量时，会优先访问的是在自己作用域链上声明的变量，如果自己作用域链上没有声明这个变量，那么就往上一级去找有没有声明这个变量，如果有就访问，如果没有就继续往上找有没有声明，直到找到0级作用域链上，如果有，就访问，如果没有就报错</li>
+</ul>
+</li>
+</ul>
+<p><img src="./1535790436148.png" alt="Alt text"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">/*1.作用域链由来：默认情况下，变量处在全局作用域（0级链），声明一个函数，会开辟一个局部作用域（1级链），</span></span><br><span class="line"><span class="comment">    如果在该函数中又声明一个函数，则会形成一个新的局部作用域（2级链）</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    2.变量在作用域的访问原则：就近原则</span></span><br><span class="line"><span class="comment">        * 解释：访问变量时，首先会从自身所在的作用域查看是否声明，如果有声明则是该变量。如果没有声明，则会从父级</span></span><br><span class="line"><span class="comment">       作用域查看是否声明，如果有则是该变量，以此类推，如果父级没有，则继续往父级找，一直找到0级链，如果0级链还是没有</span></span><br><span class="line"><span class="comment">       则程序报错</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">10</span>;<span class="comment">//0级</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span> (<span class="params">  </span>) </span>&#123;<span class="comment">//0级，函数变量名自身还是0级的</span></span><br><span class="line">        <span class="comment">//局部作用域</span></span><br><span class="line">         <span class="keyword">var</span> num = <span class="number">20</span>;<span class="comment">//1级链</span></span><br><span class="line">        <span class="built_in">console</span>.log ( <span class="string">'fn1:'</span> + num );</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn2</span> (<span class="params">  </span>) </span>&#123;<span class="comment">//1级链，fn2自身还是在fn1的作用域下声明的</span></span><br><span class="line">            <span class="comment">//局部作用域</span></span><br><span class="line">            <span class="keyword">var</span> num = <span class="number">30</span>;<span class="comment">//2级链</span></span><br><span class="line">            <span class="built_in">console</span>.log ( <span class="string">'fn2:'</span> + num );</span><br><span class="line">        &#125;</span><br><span class="line">        fn2();</span><br><span class="line">    &#125;</span><br><span class="line">    fn1();</span><br><span class="line">    <span class="built_in">console</span>.log ( <span class="string">'函数外'</span> + num );</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-js预解析"><a href="#6-js预解析" class="headerlink" title="6. js预解析"></a>6. js预解析</h3><ul>
+<li>预解析机制:<ul>
+<li>js在执行代码之前,会把变量的声明提升到所在作用域的最顶端<ul>
+<li>将变量声明提前（相当于提前开辟内存空间），变量的赋值与函数的调用还是在原地</li>
+<li>函数的声明也会提前</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>好处:<br>让函数可以在任何地方被调用</p>
+<p>注意:<br>如果一个变量在声明的时候没有使用var,改变量无论写在声明位置都是全局的,不参与预解析 </p>
+<p>### </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/my-site/" data-id="cjlllyqxi0001rwi4kifhu6cu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/03/JavaScript函数及作用域/" data-id="cjllmk5qt0005e8i46idh47hc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -99,10 +174,10 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-在线ToDoList" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/03/hello-world/" class="article-date">
-  <time datetime="2018-09-03T01:10:18.227Z" itemprop="datePublished">2018-09-03</time>
+    <a href="/2018/03/15/在线ToDoList/" class="article-date">
+  <time datetime="2018-03-15T15:35:43.000Z" itemprop="datePublished">2018-03-15</time>
 </a>
     
   </div>
@@ -113,7 +188,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/03/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/03/15/在线ToDoList/">在线ToDoList应用</a>
     </h1>
   
 
@@ -121,20 +196,615 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>使用模块化编程的方式用JS操控DOM，事件，事件触发之间的逻辑关系，以及通过Sore.js实现          了浏览器的本地存储的，通过Datetimepicker插件实现日期的选择，完成了基本的增，删，改，查等功能，最后用BootStrap优化界面。</p>
+</blockquote>
+<hr>
+<p>预览地址：<a href="https://meetzhang.github.io/MyToDoList/" target="_blank" rel="noopener">https://meetzhang.github.io/MyToDoList/</a></p>
+<hr>
+<h1 id="开发思路"><a href="#开发思路" class="headerlink" title="开发思路"></a>开发思路</h1><ul>
+<li>列表清单应用的整体布局</li>
+<li>列表清单布局的细节完善</li>
+<li>列表清单应用的需求及逻辑梳理</li>
+<li>列表清单应用的架构方式</li>
+<li>列表清单应用的数据存储方式</li>
+<li>列表清单应用的数据存储方式</li>
+</ul>
+<h1 id="第三方插件"><a href="#第三方插件" class="headerlink" title="第三方插件"></a>第三方插件</h1><ul>
+<li>通过store.js实现数据的保存    </li>
+<li>通过datetimepicker插件实现日期的选择- </li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h5 id="使用-JS-操控-DOM，事件，事件触发之间的逻辑关系，以及通过-store-js-实现-了浏览器的本地存储的，通过-datetimepicker-插件实现日期的选择，完成了基本的-增，删，改，查等功能，最后用-BootStrap-优化界面"><a href="#使用-JS-操控-DOM，事件，事件触发之间的逻辑关系，以及通过-store-js-实现-了浏览器的本地存储的，通过-datetimepicker-插件实现日期的选择，完成了基本的-增，删，改，查等功能，最后用-BootStrap-优化界面" class="headerlink" title="使用 JS 操控 DOM，事件，事件触发之间的逻辑关系，以及通过 store.js 实现 了浏览器的本地存储的，通过 datetimepicker 插件实现日期的选择，完成了基本的 增，删，改，查等功能，最后用 BootStrap 优化界面"></a><strong>使用 JS 操控 DOM，事件，事件触发之间的逻辑关系，以及通过 store.js 实现 了浏览器的本地存储的，通过 datetimepicker 插件实现日期的选择，完成了基本的 增，删，改，查等功能，最后用 BootStrap 优化界面</strong></h5>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/15/在线ToDoList/" data-id="cjllmk5qv0006e8i427231srb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-画出自适应皮卡丘" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/14/画出自适应皮卡丘/" class="article-date">
+  <time datetime="2018-03-14T15:35:43.000Z" itemprop="datePublished">2018-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/14/画出自适应皮卡丘/">画出自适应皮卡丘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Pikachu"><a href="#Pikachu" class="headerlink" title="Pikachu"></a>Pikachu</h1><p>预览地址：<a href="https://meetzhang.github.io/Pikachu/" target="_blank" rel="noopener">https://meetzhang.github.io/Pikachu/</a></p>
+<hr>
+<h2 id="响应式布局画出皮卡丘全过程"><a href="#响应式布局画出皮卡丘全过程" class="headerlink" title="响应式布局画出皮卡丘全过程"></a>响应式布局画出皮卡丘全过程</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>由CSS3写出响应式布局的皮卡丘，然后基于JQuery框架写JS逻辑实现动态加载，把制作皮卡丘的全过程展现出来，最后用BootStrap优化界面。</p>
+<hr>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>HTML</li>
+<li>CSS3</li>
+<li>JS</li>
+<li>JQuery</li>
+<li>BootStrap</li>
+</ul>
+<hr>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>用HTML+CSS3写出皮卡丘的原型</li>
+<li>把页面分割成两半，上半部分展示代码，下半部分展示画皮卡丘全过程</li>
+<li>基于JQuery用JS定时器向页面渲染CSS代码，并用CSS写出皮卡丘效果</li>
+<li>并用定时器控制调速</li>
+<li>最后加上BootStrap进行细节优化</li>
+</ol>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>画皮卡丘的嘴唇和舌头比较复杂，需要用到CSS3里的transform指令，还有定时器的使用以及函数式编程</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/03/hello-world/" data-id="cjlllyqxd0000rwi439p9j36e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/03/14/画出自适应皮卡丘/" data-id="cjllmk5qw0007e8i47b6s81r7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CSS3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/14/CSS3/" class="article-date">
+  <time datetime="2018-03-14T14:35:43.000Z" itemprop="datePublished">2018-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/14/CSS3/">box-sizing属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="box-sizing-border-box-的作用"><a href="#box-sizing-border-box-的作用" class="headerlink" title="* { box-sizing: border-box; } 的作用"></a>* { box-sizing: border-box; } 的作用</h1><blockquote>
+<p>box-sizing:border-box; 是CSS3新增属性，了解这个属性，我们先从块级元素的盒子大小说起，通常一个块级元素实际所占宽高度=外边距（margin）+ 边界宽度(border-width) + 内边距（padding）+ 高度（height） /  宽度（width）<br>如果设置了border-box，实际所占宽高度 = 设置的高度（height）/ 设置的宽度（width）+ 外边距（margin）<br>你运行下面的代码就很好理解了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">#div1 &#123;box-sizing:border-box; height:200px; width:200px; background:red; margin:10px; border:1px solid #000; padding:20px;&#125;</span><br><span class="line">#div2 &#123;box-sizing:content-box; height:200px; width:200px; background:red; margin:10px; border:1px solid #000; padding:20px;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"> </span><br><span class="line">&lt;div id=&quot;div1&quot;&gt;border-box&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;div2&quot;&gt;content-box&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h1><ol>
+<li>利于页面布局和排版</li>
+<li>固定了盒子模型，border的改变也不会影响到盒子模型的大小</li>
+<li>简化了计算位置的问题</li>
+<li>更符合我们日常对盒子的认识</li>
+</ol>
+<hr>
+<h2 id="END"><a href="#END" class="headerlink" title="- END -"></a>- END -</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/14/CSS3/" data-id="cjllmk5qr0003e8i4pg24p911" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-github的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/13/github的使用/" class="article-date">
+  <time datetime="2018-03-13T14:35:43.000Z" itemprop="datePublished">2018-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/13/github的使用/">Github的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="将本地项目挂载到github预览"><a href="#将本地项目挂载到github预览" class="headerlink" title="将本地项目挂载到github预览"></a>将本地项目挂载到github预览</h1><blockquote>
+<p>前提条件：</p>
+<ul>
+<li>已有github账号</li>
+<li>配置好github的ssh key信息</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="上传本地项目到github"><a href="#上传本地项目到github" class="headerlink" title="上传本地项目到github"></a>上传本地项目到github</h2><ol>
+<li>先进入项目文件夹，通过git命令git init把这个目录变成git可以管理的仓库<blockquote>
+<p><code>git init</code></p>
+</blockquote>
+</li>
+<li>使用git add .添加到暂存区里面，不要忘记add .后面的小数点<blockquote>
+<p><code>git add .</code></p>
+</blockquote>
+</li>
+<li>用命令git commit -m “注释内容”把文件提交到仓库，引号里面为注释<blockquote>
+<p><code>git commit -m &quot;注释&quot;</code></p>
+</blockquote>
+</li>
+<li>关联到远程仓库   git remore add origin （你的仓库名，一定要关联成功<blockquote>
+<p><code>git remore add origin git@github.com:MeetZhang/meetzhang.github.io.git</code></p>
+</blockquote>
+</li>
+<li>将项目上传到github仓库中<blockquote>
+<p><code>git push -u origin master</code></p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="直接在-GitHub-创建一个仓库，然后下载到本地"><a href="#直接在-GitHub-创建一个仓库，然后下载到本地" class="headerlink" title="直接在 GitHub 创建一个仓库，然后下载到本地"></a>直接在 GitHub 创建一个仓库，然后下载到本地</h2><blockquote>
+<ul>
+<li>首先在GitHub 上新建一个仓库</li>
+<li>然后获得仓库地址如：<a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:MeetZhang/meetzhang.github.io.git`</li>
+</ul>
+</blockquote>
+<ol>
+<li>在安全的目录下将github的仓库地址下载到本地</li>
+</ol>
+<blockquote>
+<p><code>git clone git@github.com:MeetZhang/meetzhang.github.io.git</code></p>
+</blockquote>
+<ol start="2">
+<li>进入刚下载好的目录文件，一定要注意</li>
+</ol>
+<blockquote>
+<p><code>cd &lt;文件名&gt;</code></p>
+</blockquote>
+<ol start="3">
+<li>将项目文件上添加到github暂存区，注意add .后面的小数点，一定要写</li>
+</ol>
+<blockquote>
+<p><code>git add .</code></p>
+</blockquote>
+<ol start="4">
+<li>提交到本地库并注释    </li>
+</ol>
+<blockquote>
+<p><code>git commit -m &quot;注释&quot;</code></p>
+</blockquote>
+<ol start="5">
+<li>推送到github远程库</li>
+</ol>
+<blockquote>
+<p><code>git push origin master</code></p>
+</blockquote>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="上传本地项目到github-1"><a href="#上传本地项目到github-1" class="headerlink" title="上传本地项目到github"></a>上传本地项目到github</h3><ol>
+<li><code>git init</code></li>
+<li><code>git add .</code></li>
+<li><code>git commit -m &quot;注释&quot;</code></li>
+<li><code>git remore add origin git@github.com:MeetZhang/meetzhang.github.io.git</code></li>
+<li><code>git push -u origin master</code></li>
+</ol>
+<h3 id="直接在-GitHub-创建一个仓库，然后下载到本地-1"><a href="#直接在-GitHub-创建一个仓库，然后下载到本地-1" class="headerlink" title="直接在 GitHub 创建一个仓库，然后下载到本地"></a>直接在 GitHub 创建一个仓库，然后下载到本地</h3><ol>
+<li><code>git clone git@github.com:MeetZhang/meetzhang.github.io.git</code></li>
+<li><code>cd &lt;文件名&gt;</code></li>
+<li><code>git add .</code></li>
+<li><code>git commit -m &quot;注释&quot;</code></li>
+<li><code>git push origin master&quot;</code></li>
+</ol>
+<h3 id="上传更新"><a href="#上传更新" class="headerlink" title="上传更新"></a>上传更新</h3><blockquote>
+<p>你在本地目录有任何变动，只需按照以下顺序就能上传：</p>
+</blockquote>
+<ol>
+<li><code>git pull</code></li>
+<li><code>git add .</code></li>
+<li><code>git commit -m &quot;注释信息&quot;</code></li>
+<li><code>git push -u origin master</code></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/13/github的使用/" data-id="cjllmk5qi0000e8i4x1kxyb60" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JavaScript常用单词" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/12/JavaScript常用单词/" class="article-date">
+  <time datetime="2018-03-12T15:35:43.000Z" itemprop="datePublished">2018-03-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/12/JavaScript常用单词/">JavaScript常用单词</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaScript单词"><a href="#JavaScript单词" class="headerlink" title="JavaScript单词"></a>JavaScript单词</h1><ul>
+<li><p><code>push</code>: 添加一个数组元素</p>
+</li>
+<li><p><code>document</code>：文档</p>
+</li>
+<li><p><code>pop</code>：删除最后一个数组元素</p>
+</li>
+<li><p><code>console.log</code>：控制台</p>
+</li>
+<li><p><code>shift</code>：删除第一个数组元素</p>
+</li>
+<li><p><code>string</code>：字符串</p>
+</li>
+<li><p><code>Concat</code>: 组合数组</p>
+</li>
+<li><p><code>undefined</code>：未定义</p>
+</li>
+<li><p><code>typeof</code>：关键字</p>
+</li>
+<li><p><code>join</code>：数组转化为指定分隔符</p>
+</li>
+<li><p><code>slice</code>：返回指定数组</p>
+</li>
+<li><p><code>length</code>：长度属性</p>
+</li>
+<li><p><code>Array</code>：数组</p>
+</li>
+<li><p><code>Number</code>：数字</p>
+</li>
+<li><p><code>Boolean</code>：布尔</p>
+</li>
+<li><p><code>alert</code>：提示框</p>
+</li>
+<li><p><code>parseInt</code>：转化为整型数值</p>
+</li>
+<li><p><code>continue</code>：继续</p>
+</li>
+<li><p><code>is NaN</code>：非数字</p>
+</li>
+<li><p><code>sort</code>：升序</p>
+</li>
+<li><p><code>break</code>：截断 跳出</p>
+</li>
+<li><p><code>reverse</code>：倒序</p>
+</li>
+<li><p><code>object</code>：对象类型</p>
+</li>
+<li><p><code>parseFloat</code>：转化为浮点值</p>
+</li>
+<li><p><code>index</code>：索引</p>
+</li>
+<li><p><code>floor</code>：向下取整</p>
+</li>
+<li><p><code>variable</code>：变量</p>
+</li>
+<li><p><code>ceil</code>：向上取整</p>
+</li>
+<li><p><code>round</code>:四舍五入</p>
+</li>
+<li><p><code>abs</code>：返回绝对值</p>
+</li>
+<li><p><code>eval</code>：解析字符串并运算</p>
+</li>
+<li><p><code>max</code>：比较最大值</p>
+</li>
+<li><p><code>return</code>：返回</p>
+</li>
+<li><p><code>min</code>：比较最小值</p>
+</li>
+<li><p><code>addEventListener</code>：事件名 函数</p>
+</li>
+<li><p><code>to.fixed</code>：保留小数点</p>
+</li>
+<li><p><code>attachEvant</code>：（on）事件名</p>
+</li>
+<li><p>`random- ：随机数</p>
+</li>
+<li><p><code>eletment</code>：元素</p>
+</li>
+<li><p><code>onclick</code>：鼠标单击事件</p>
+</li>
+<li><p><code>eventName</code>：事件名</p>
+</li>
+<li><p><code>ondblclick</code>：鼠标双击事件</p>
+</li>
+<li><p><code>function</code>：函数</p>
+</li>
+<li><p><code>onselect</code>：内容被选中事件</p>
+</li>
+<li><p><code>removeEventListener</code>：事件解除</p>
+</li>
+<li><p><code>onmouseover</code>：鼠标移入事件</p>
+</li>
+<li><p><code>detachEvent</code>：删除已注册事件</p>
+</li>
+<li><p><code>onmouseout</code>：鼠标移出事件</p>
+</li>
+<li><p><code>open（）</code>：弹出一个新窗口</p>
+</li>
+<li><p><code>onfocus</code>：获得焦点事件</p>
+</li>
+<li><p><code>function</code>：函数（方法）</p>
+</li>
+<li><p><code>showModalDialog</code>：弹出一个模式窗口</p>
+</li>
+<li><p><code>close（）</code>：关闭当前窗口</p>
+</li>
+<li><p><code>onblur</code>：失去焦点事件</p>
+</li>
+<li><p><code>onkeydown</code>：键盘按下事件（前）</p>
+</li>
+<li><p><code>Date</code>：日期对象</p>
+</li>
+<li><p><code>onkeyup</code>：键盘松开事件</p>
+</li>
+<li><p><code>onkeypress</code>：键盘按下事件（后）</p>
+</li>
+<li><p><code>getFullYear（）</code>：年份</p>
+</li>
+<li><p><code>getMonth（）</code>：月份（0–11）</p>
+</li>
+<li><p><code>getDate（）</code>：几号</p>
+</li>
+<li><p><code>getDay（）</code>：星期几（周一至周六）</p>
+</li>
+<li><p><code>getHours（）</code>：小时（0–23）</p>
+</li>
+<li><p><code>getMinites（）</code>：分钟</p>
+</li>
+<li><p><code>getSeconds（）</code>：秒数（0–59）</p>
+</li>
+<li><p><code>getMilliseconds（）</code>：毫秒数</p>
+</li>
+<li><p><code>getTime（）</code>：从1970至今的毫秒数</p>
+</li>
+<li><p><code>Date.now（）</code>：从1970至今的毫秒值</p>
+</li>
+<li><p><code>tolocaleDatestring（）</code>：输出本地化的日期</p>
+</li>
+<li><p><code>setTimeout</code>：延迟时间</p>
+</li>
+<li><p><code>tolocaleTimestring（）</code>：输出本地化得时间</p>
+</li>
+<li><p><code>clearTimeout</code>：定时器对象</p>
+</li>
+<li><p><code>tolocalestring</code>：输出本地化的日期和时间</p>
+</li>
+<li><p><code>setInterval</code>：间隔时间</p>
+</li>
+<li><p><code>clearInterval</code>：停止</p>
+</li>
+<li><p><code>window.status</code>：浏览器状态栏信息</p>
+</li>
+<li><p><code>window.screen</code>：屏幕信息</p>
+</li>
+<li><p><code>screen.width</code>：屏幕宽度</p>
+</li>
+<li><p><code>screen.height</code>：屏幕高度</p>
+</li>
+<li><p><code>screen.availwidth</code>：去掉任务栏宽度</p>
+</li>
+<li><p><code>screen.avaiheight</code>：去掉任务栏高度</p>
+</li>
+<li><p><code>history</code>：浏览历史记录</p>
+</li>
+<li><p><code>location</code>：地址栏对象</p>
+</li>
+<li><p><code>onchange</code>: 内容改变事件</p>
+</li>
+<li><p><code>onkeydown</code>: 键盘按下事件（前）</p>
+</li>
+<li><p><code>onkeyup</code>: 键盘松开事件</p>
+</li>
+<li><p><code>onkeypress</code>: 键盘按下事件（后）</p>
+</li>
+<li><p><code>navigator</code>：用于获取用户浏览器信息</p>
+</li>
+<li><p><code>appCodeName</code>：浏览器代码名的字符串表示</p>
+</li>
+<li><p><code>appName</code>：返回浏览器的名称</p>
+</li>
+<li><p><code>appVersion</code>：返回浏览器的平台和版本信息</p>
+</li>
+<li><p><code>platform</code>：返回运行浏览器的操作系统平台</p>
+</li>
+<li><p><code>userAgent</code>：返回由客户机发送服务器的</p>
+</li>
+<li><p><code>user-agent</code>：头部的值</p>
+</li>
+<li><p><code>Exception</code>：异常 意外情况（try—catch）</p>
+</li>
+<li><p><code>onload</code>：当页面加载完成之后触发</p>
+</li>
+</ul>
+<p>获取元素对象方式:</p>
+<p><code>`</code>getElementByld：<br>getElementsByName：<br>gatElementsByTagName：<br>getElementByClassName：`</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/12/JavaScript常用单词/" data-id="cjllmk5qp0002e8i4om6vym59" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-HTML常见的标签以及标签的应用总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/12/HTML常见的标签以及标签的应用总结/" class="article-date">
+  <time datetime="2018-03-12T14:35:43.000Z" itemprop="datePublished">2018-03-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/12/HTML常见的标签以及标签的应用总结/">HTML常用单词</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HTML常见的标签以及标签的应用总结"><a href="#HTML常见的标签以及标签的应用总结" class="headerlink" title="HTML常见的标签以及标签的应用总结"></a>HTML常见的标签以及标签的应用总结</h1><ul>
+<li><code>&lt;html&gt;</code>HTML 页面的根元素   </li>
+<li><code>&lt;body&gt;</code>    文档的内容  </li>
+<li><code>&lt;head&gt;</code>    用于定义文档的头部  </li>
+<li><code>&lt;meta&gt;</code>    提供了元数据.元数据也不显示在页面上，被浏览器解析  </li>
+<li><code>&lt;title&gt;</code>    文档的标题  </li>
+<li><code>&lt;h1&gt;-&lt;h6&gt;</code> 定义了一级标题到六级标题，标题字体大小逐渐减弱  </li>
+<li><code>&lt;p&gt;</code>    定义一个段落  </li>
+<li><code>&lt;a&gt;</code>    网页链接  </li>
+<li><code>&lt;div&gt;</code> 块级元素，它可用于组合其他 HTML 元素的容器,没有特定的含义  </li>
+<li><code>&lt;span&gt;</code>    内联元素，也没有特定的含义，可用作文本的容器  </li>
+<li><code>&lt;u&gt;</code>    下划线  </li>
+<li><code>&lt;em&gt;</code>    强调文本  </li>
+<li><code>&lt;strong&gt;</code>    加重文本  </li>
+<li><code>&lt;ol&gt;</code>    有序列表  </li>
+<li><code>&lt;ul&gt;</code>    无序列表  </li>
+<li><code>&lt;li&gt;</code>    定义列表项目  </li>
+<li><code>&lt;img&gt;</code>    图片  </li>
+<li><code>&lt;br &gt;</code>    换行  </li>
+<li><code>&lt;input&gt;</code>    定义输入控件  </li>
+<li><code>&lt;i&gt;</code>    斜体字  </li>
+<li><code>&lt;table&gt;</code>定义表  </li>
+<li><code>&lt;tr&gt;</code>    定义表格中的行  </li>
+<li><code>&lt;td&gt;</code>    定义表中的单元格  </li>
+<li><code>&lt;th&gt;</code>    定义表格的表头  </li>
+<li><code>&lt;tbody&gt;</code>    定义表格的主体  </li>
+<li><code>&lt;tfoot&gt;</code>    定义表格的页脚  </li>
+<li><code>&lt;hr&gt;</code>    创建一条水平线  </li>
+<li><code>&lt;iframe&gt;</code>    定义内联框架  </li>
+<li><code>&lt;cite&gt;</code>    定义作品的标题  </li>
+<li><code>&lt;button&gt;</code>    按钮  </li>
+<li><code>&lt;b&gt;</code>    定义粗体文本  </li>
+<li><code>&lt;form&gt;</code>    定义用于用户输入的HTML表单  </li>
+<li><code>&lt;caption&gt;</code>    定义表标题  </li>
+<li><code>&lt;footer&gt;</code>    定义文档或节的页脚</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/12/HTML常见的标签以及标签的应用总结/" data-id="cjllmk5qn0001e8i4jm7n5fcg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-张铭钦的第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/12/张铭钦的第一篇博客/" class="article-date">
+  <time datetime="2018-03-12T12:35:43.000Z" itemprop="datePublished">2018-03-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/12/张铭钦的第一篇博客/">张铭钦FirstBlog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>从最开始接触到前端的时候就有自己搭建个人博客的想法，由于各种原因一直没有行动，但是最近发现自己以前学习的知识很快就忘记了，没有经过学思考和总结，于是最近就开始动手搭建个人博客，搭建的过程也遇到了不少坑，但是看到博客最终呈现在我眼前时内心是欣喜若狂，一股自豪感油然而生!</p>
+</blockquote>
+<hr>
+<h1 id="博客的内容"><a href="#博客的内容" class="headerlink" title="博客的内容"></a>博客的内容</h1><ol>
+<li>记录自己学习、思考、总结</li>
+<li>分享生活的所得、感想</li>
+<li>提高将事情讲清楚的能力</li>
+<li>记录成长</li>
+<li>培养持续做一件事情的能力</li>
+<li>提供持续学习的动力</li>
+</ol>
+<hr>
+<p><img src="http://ou7wdump3.bkt.clouddn.com/glasses-notebook-wooden-business-163142.jpeg" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/12/张铭钦的第一篇博客/" data-id="cjllmk5qs0004e8i434d6176b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -162,7 +832,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
     </div>
   </div>
 
@@ -175,11 +845,23 @@
       <ul>
         
           <li>
-            <a href="/2018/09/03/my-site/">my_site</a>
+            <a href="/2018/09/03/JavaScript函数及作用域/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2018/09/03/hello-world/">Hello World</a>
+            <a href="/2018/03/15/在线ToDoList/">在线ToDoList应用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/画出自适应皮卡丘/">画出自适应皮卡丘</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/14/CSS3/">box-sizing属性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/13/github的使用/">Github的使用</a>
           </li>
         
       </ul>
