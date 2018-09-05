@@ -229,6 +229,518 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/html5day01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张铭钦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangMingQin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/05/html5day01/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T16:04:47+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="html5day01"><a href="#html5day01" class="headerlink" title="html5day01"></a>html5day01</h1><blockquote>
+<p>H5&amp;C3 HTML5其实就是html的一个新的规范版本 </p>
+</blockquote>
+<ol>
+<li>H5的规范里新增了狠多新标签和新的自定义属性,以及开放了一些高级的js API, 列如地理定位,传感器等</li>
+<li>C3里加了狠多新的选择器,以及新的属性,外加狠多动画效果,方便我们事先动画和一些立体的33效果</li>
+</ol>
+<p>[TOC]</p>
+<h3 id="H5中新增的结构标签"><a href="#H5中新增的结构标签" class="headerlink" title="H5中新增的结构标签"></a>H5中新增的结构标签</h3><ol>
+<li>更具备了语义化,有利于SEO</li>
+<li><p>h5的新标签不兼容IE 所以需要做兼容处理<br>可以使用使用工具库插件兼容新标签和CSS  Hack做兼容’</p>
+<!-- 只要导入就能解决兼容问题 -->
+ <!-- 只有小于或等于IE8，才导入   LT：小于 LTE:小于或等于  GT：大于 GTE:大于或等于 -->
+ <!--[if LTE IE 8]>
+      <script src="html5shiv.js"></script>
+ <![endif]-->
+</li>
+</ol>
+<h3 id="用js兼容新标签"><a href="#用js兼容新标签" class="headerlink" title="用js兼容新标签"></a>用js兼容新标签</h3><ol>
+<li>document.createElement,可以创建本身的标签也可以创建自定义标签,默认是行内元素</li>
+<li>如果用js的方式来兼容H5新增的结构 ,那么需要将它转成块级元素</li>
+</ol>
+<p>总结<br>证明其实兼容的本质就是创建一个自定义的标签</p>
+<h3 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h3><blockquote>
+<p>标签原本不存在的属性叫自定义属性</p>
+</blockquote>
+<p>自定义属性的写法</p>
+<ol>
+<li>写自定义属性的时候，前面加一个前缀data-</li>
+<li>.如果你是按H5规范（data-）写的这个自定义属性，那么取<br>值时就能很方便获取</li>
+</ol>
+<p>获取方法如下: 元素.dataset[‘自定义属性名’];即可,不需要加data<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div1"</span> <span class="attr">data-age</span>=<span class="string">"16"</span> <span class="attr">data-sex</span>=<span class="string">"nan"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    /* </span></span><br><span class="line"><span class="undefined">    H5里新增了自定义属性的写法</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        1.写自定义属性的时候，前面加一个前缀data-</span></span><br><span class="line"><span class="undefined">        2.如果你是按H5规范（data-）写的这个自定义属性，那么取值时就能很方便的取到了</span></span><br><span class="line"><span class="javascript">                用 元素.dataset[<span class="string">'自定义属性名'</span>];  不用加data-</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="javascript">   <span class="built_in">console</span>.log( <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>).dataset[<span class="string">'age'</span>]);</span></span><br><span class="line"><span class="javascript">   <span class="built_in">console</span>.log( <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>).dataset[<span class="string">'sex'</span>]);</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><ol>
+<li>hover: 鼠标悬停时的样式</li>
+<li>link: 点击之前的样式</li>
+<li>active: 点击时的样式</li>
+<li>visited: 点击后的样式</li>
+<li>first-child: 找到第一个子元素</li>
+<li>last-child：找到最后一个子元素</li>
+<li>nth-child：找到某个位置的子元素 <ol start="8">
+<li>even：代表找到所有偶数</li>
+<li>odd；代表找到所有奇数下·</li>
+<li>n：代表找到所有</li>
+<li>7n：代表找到所有7的倍数</li>
+<li>7n-1：代表找到所有7的倍数前一位的数</li>
+</ol>
+</li>
+</ol>
+<p>伪类选择器都有个特点,前面都有一个冒号</p>
+<h3 id="伪元素选择器之xxx-of-type"><a href="#伪元素选择器之xxx-of-type" class="headerlink" title="伪元素选择器之xxx-of-type"></a>伪元素选择器之xxx-of-type</h3><ol>
+<li>跟xxx-child很像</li>
+<li>first-of-type  找到第一个元素</li>
+<li>last-of-type  找到最后一个元素</li>
+<li>nth-of-type()  找到第几个元素</li>
+</ol>
+<h3 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h3><blockquote>
+<p>优点,就是不用直接算尺寸,  默认是外扩content-box,使用是外扩box-sizing: border-box,就是padding和border往内加</p>
+</blockquote>
+<ul>
+<li>盒子的宽度: 自身宽+左右padding+左右边距+左右margin<figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- </span></span></span><br><span class="line"><span class="xml">    </span></span><br><span class="line"><span class="xml">    盒子占的宽： 自身宽 + 左右padding + 左右边框 + 左右margin</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"> --&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">        .box&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            width: 100px;</span></span><br><span class="line"><span class="xml">            height: 100px;</span></span><br><span class="line"><span class="xml">            background-color: #f00;</span></span><br><span class="line"><span class="xml">            padding: 10px;</span></span><br><span class="line"><span class="xml">            border: 5px solid #000;</span></span><br><span class="line"><span class="xml">            margin-left: 50px;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            /* 因为默认情况下：padding和Border都是往外加，我们叫外扩 */</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            /* 内聚：padding和border都是往内加 */</span></span><br><span class="line"><span class="xml">            box-sizing: border-box;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            /* content-box是外扩,默认值就是这个 */</span></span><br><span class="line"><span class="xml">            /* box-sizing: content-box; */</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="伪元素选择器-1"><a href="#伪元素选择器-1" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><blockquote>
+<p>为元素写两个冒号,当然写一个也可以,但那时浏览器优化,规范里要求写两个</p>
+</blockquote>
+<ol>
+<li>::first-letter  找到第一个字母</li>
+<li>::first-line  找到首行</li>
+<li>::first-selection 鼠标选择时</li>
+<li>::placeholder 输入框占位符样式</li>
+<li>::before</li>
+<li>::after</li>
+</ol>
+<p>总结 before和aftet一般主要是为了清除浮动带来的影响,默认是行内元素,就算没有文字,也需要加content,传一个空值</p>
+<h3 id="transition-过渡效果"><a href="#transition-过渡效果" class="headerlink" title="transition 过渡效果"></a>transition 过渡效果</h3><p><code>transition: all .2s .2s;</code><br>transition是复合属性,一般直接用</p>
+<ol>
+<li>参数1 参与过渡的属性,一般写all,代表都参与</li>
+<li>参数2 动画事件</li>
+<li>参数3 延迟多久开</li>
+<li>参数4 动画效果(曲线):ease ease-in ease-out <strong>linear</strong> :匀速 <strong>steps</strong>:分几步动画</li>
+</ol>
+<p>transistion如果加在普通对象里,会正常,如果加在hover里会出现闪现情况</p>
+<ul>
+<li>js触发transition效果<br>简单来说就是给它加一个类选择器,选择器里写transition</li>
+</ul>
+<ol>
+<li>如果要用js触发transition,只要加一个类就行了,记得类里面要有transistion,或者默认就有transistion</li>
+<li>classList 能够获取到某个元素的所有类,一个类就是一个元素<pre><code>3. add.  添加一个类
+4. remove  删除一个类
+5. toggle 切换类
+</code></pre></li>
+</ol>
+<figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- </span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        1.如果要用JS触发transition，只要加一个类就行了，记得类里要有transition，或者默认就有transition</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        2.classList：能获取到某个元素的所有类，一个类是一个元素</span></span><br><span class="line"><span class="xml">                    add：添加一个类</span></span><br><span class="line"><span class="xml">                    remove:删除一个类</span></span><br><span class="line"><span class="xml">                    toggle：切换一个类，原来有的就删掉，原来没的就加上</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"> --&gt;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">        .box&#123;</span></span><br><span class="line"><span class="xml">            width: 100px;</span></span><br><span class="line"><span class="xml">            height: 100px;</span></span><br><span class="line"><span class="xml">            background-color: #f00;</span></span><br><span class="line"><span class="xml">            transition: all 1.5s;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        .animation&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            width: 300px;</span></span><br><span class="line"><span class="xml">            height: 300px;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"放大"</span> <span class="attr">id</span>=<span class="string">"bigger"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"复原"</span> <span class="attr">id</span>=<span class="string">"reset"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"开关"</span> <span class="attr">id</span>=<span class="string">"turn"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    var box = document.querySelector('.box');</span></span><br><span class="line"><span class="xml">    document.getElementById('bigger').onclick = function()&#123;</span></span><br><span class="line"><span class="xml">        box.classList.add('animation')  </span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    document.getElementById('reset').onclick = function()&#123;</span></span><br><span class="line"><span class="xml">        box.classList.remove('animation');</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    document.getElementById('turn').onclick = function()&#123;</span></span><br><span class="line"><span class="xml">        // 如果之前类里面没有animation，就给你加上animation</span></span><br><span class="line"><span class="xml">        // 如果原来类里面有animation，就给你去掉animation</span></span><br><span class="line"><span class="xml">        box.classList.toggle('animation');</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="classList"><a href="#classList" class="headerlink" title="classList"></a>classList</h3><blockquote>
+<p>H5中新增的JS属性，代表找到某个元素的所有的类</p>
+<ul>
+<li>add方法<br>  加一个类</li>
+<li>remove方法<br>  移除一个类</li>
+<li>toggle方法<br>  切换一个类</li>
+</ul>
+</blockquote>
+<h3 id="盒子阴影box-shadow-amp-文字阴影text-shadow"><a href="#盒子阴影box-shadow-amp-文字阴影text-shadow" class="headerlink" title="盒子阴影box-shadow&amp;文字阴影text-shadow"></a>盒子阴影box-shadow&amp;文字阴影text-shadow</h3><ul>
+<li><code>box-shadow: 10px 10px 10px hotpink inset;</code></li>
+</ul>
+<ol>
+<li>参数一 水平偏移 值越大越往右</li>
+<li>参数二 垂直偏移    值越大越往下</li>
+<li>参数三 模糊度    高斯模糊</li>
+<li>参数四 阴影宽度</li>
+<li>参数五 阴影的颜色</li>
+<li>还有一个参数 inset代表盒子内的阴影只能写在前面或后面</li>
+</ol>
+<ul>
+<li><code>text-shadow: 0px 0px 30px red;</code></li>
+</ul>
+<ol>
+<li>参数一 水平偏移 值越大越往右</li>
+<li>参数二 垂直偏移    值越大越往下</li>
+<li>参数三 模糊度 高斯模糊</li>
+<li>参数四 阴影颜色</li>
+</ol>
+<p>总结: 可以有多个阴影,用逗号隔开 如txt-shadow: 0px 0px 30px red,0px 0px 30px green,0px 0px 30px black,;</p>
+<h3 id="background背景属性"><a href="#background背景属性" class="headerlink" title="background背景属性"></a>background背景属性</h3><p>默认情况下，图片比盒子大，那么图片原样显示，只是左上角对齐，显示一点点，如果图片比盒子小，那么就默认平铺 </p>
+<ol>
+<li>参数1：图片的路径，可以加引号，也可以不加</li>
+<li>参数2：是否平铺，一般用no-repeat，可选值还有repeat,repeat-x,repeat-y</li>
+<li>参数3：设置图片的位置（ background-position ） 后面可以加一个 / 设置图片的大小<ol start="4">
+<li>但是建议不要直接改图片大小，因为可能会变形</li>
+<li>cover和contain都是按比例缩放，只不过cover是覆盖（它一定会覆盖盒子）</li>
+<li>contain一定会被盒子包含</li>
+</ol>
+</li>
+</ol>
+<p>注意: 多层背景图片时的现象<br>最先写的背景图片,层级最高,最后写的背景图片,层级最低</p>
+<figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">        .box&#123;</span></span><br><span class="line"><span class="xml">            width: 180px;</span></span><br><span class="line"><span class="xml">            height: 270px;</span></span><br><span class="line"><span class="xml">            border: 1px solid #000;</span></span><br><span class="line"><span class="xml">            /*</span></span><br><span class="line"><span class="xml">               默认情况下，图片比盒子大，那么图片原样显示，只是左上角对齐，显示一点点，如果图片比盒子小，那么就默认平铺 </span></span><br><span class="line"><span class="xml">                参数1：图片的路径，可以加引号，也可以不加</span></span><br><span class="line"><span class="xml">                参数2：是否平铺，一般用no-repeat，可选值还有repeat,repeat-x,repeat-y</span></span><br><span class="line"><span class="xml">                参数3：设置图片的位置（ background-position ） 后面可以加一个 / 设置图片的大小</span></span><br><span class="line"><span class="xml">                        但是建议不要直接改图片大小，因为可能会变形</span></span><br><span class="line"><span class="xml">                        cover和containr都是按比例缩放，只不过cover是覆盖（它一定会覆盖盒子）</span></span><br><span class="line"><span class="xml">                        container一定会被盒子包含</span></span><br><span class="line"><span class="xml">                </span></span><br><span class="line"><span class="xml">                如果有多张图片，就用逗号隔开</span></span><br><span class="line"><span class="xml">            */</span></span><br><span class="line"><span class="xml">            /* background: url(small.png) no-repeat left top/contain red; */</span></span><br><span class="line"><span class="xml">            /* background: red; */</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            background:url(timg.jpg) no-repeat left top / contain,url(small.png) no-repeat left bottom/contain;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h3><p>线性渐变当成背景颜色使用<br><code>background: linear-gradient(to right top,orange, orangered);</code></p>
+<ol>
+<li>参数1: 渐变的方向<pre><code>1. to right : 从左到右的渐变
+2.  to left：从右到左
+ 3. to top： 从下到上
+ 4. to bottom:从上到下
+ 5. to right bottom: 从左上到右下
+ 6. to left top ： 从右下到左上. 
+ 7. 除了可以给具体的方向外，还可以给一个角度，注意角度的单位是deg
+                0deg 是正下方开始,值越大就顺时针转
+</code></pre></li>
+<li>参数2: 起始颜色</li>
+<li>参数3: 渐变成什么颜色</li>
+</ol>
+<p>注意: 将线性渐变当成背景颜色<br>至少有两种颜色,可以N种颜色,没有上限</p>
+<h3 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h3><p><code>background-image: radial-gradient(200px at center,orange,red,blue);</code></p>
+<p>以圆的形式来渐变,所以一开始需要确定圆心的大小,还要得到半径的大小</p>
+<ol>
+<li>参数1 直径大小和圆心位置</li>
+<li>参数2 颜色 至少要有2个颜色,最多可以N个</li>
+</ol>
+<p>特点 剩余部分是最后一个颜色填充</p>
+<p>总结<br>真实开发中用的较少,渐变剩余部分是最后一个颜色填充,至少有两种颜色,可以N种颜色,没有上限</p>
+<h3 id="2D变换"><a href="#2D变换" class="headerlink" title="2D变换"></a>2D变换</h3><p>transform可以进行旋转 平移 缩放 扭曲</p>
+<ol>
+<li>rotate旋转,传入角度 单位deg</li>
+<li>translate 平移  单位是X轴和T轴</li>
+<li>scale 缩放  单位    0.1</li>
+<li>skew 扭曲,其实就是倾斜单位 deg</li>
+</ol>
+<figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">        ul&#123;</span></span><br><span class="line"><span class="xml">            padding: 0;</span></span><br><span class="line"><span class="xml">            list-style: none;</span></span><br><span class="line"><span class="xml">            width: 500px;</span></span><br><span class="line"><span class="xml">            height: 500px;</span></span><br><span class="line"><span class="xml">            margin: 100px auto;</span></span><br><span class="line"><span class="xml">            /* border: 1px solid #000; */</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        li&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            float: left;</span></span><br><span class="line"><span class="xml">            width: 240px;</span></span><br><span class="line"><span class="xml">            height: 240px;</span></span><br><span class="line"><span class="xml">            background-color: yellowgreen;</span></span><br><span class="line"><span class="xml">            margin-left:10px;</span></span><br><span class="line"><span class="xml">            margin-top:10px;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            font-size: 30px;</span></span><br><span class="line"><span class="xml">            text-align: center;</span></span><br><span class="line"><span class="xml">            line-height: 240px;</span></span><br><span class="line"><span class="xml">            transition: all 1s;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        li:first-child:hover&#123;</span></span><br><span class="line"><span class="xml">            /* 旋转 */</span></span><br><span class="line"><span class="xml">            transform: rotate(45deg);</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        li:nth-child(2):hover&#123;</span></span><br><span class="line"><span class="xml">            /* 平移 */</span></span><br><span class="line"><span class="xml">            /* xy轴都改变 */</span></span><br><span class="line"><span class="xml">            /* transform: translate(100px,100px); */</span></span><br><span class="line"><span class="xml">            transform: translate(100px);</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">        li:nth-child(3):hover&#123;</span></span><br><span class="line"><span class="xml">            /* 缩放 */</span></span><br><span class="line"><span class="xml">            transform: scale(0.1);</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">        li:last-child:hover&#123;</span></span><br><span class="line"><span class="xml">            transform: skew(45deg);</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">        </span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>旋转<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>平移<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>缩放<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>扭曲<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>注意,如果要写多个,用空格隔开,不能使用逗号隔开    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/html5day02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张铭钦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangMingQin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/13/html5day02/" itemprop="url">JavaScript函数及作用域</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T21:35:43+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5C3/" itemprop="url" rel="index">
+                    <span itemprop="name">H5C3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于H5C3的-三维坐标系-amp-视距perspective-amp-动画animation"><a href="#关于H5C3的-三维坐标系-amp-视距perspective-amp-动画animation" class="headerlink" title="关于H5C3的(三维坐标系&amp;视距perspective&amp;动画animation)"></a>关于H5C3的(三维坐标系&amp;视距perspective&amp;动画animation)</h1><h3 id="三维坐标系"><a href="#三维坐标系" class="headerlink" title="三维坐标系"></a>三维坐标系</h3><ul>
+<li>二维: 代表一个平面<ul>
+<li>只有两个轴: X轴和Y轴</li>
+</ul>
+</li>
+<li>三维: 代表一个立体<ul>
+<li>有三个轴: X轴 Y轴 Z轴</li>
+</ul>
+</li>
+</ul>
+<p><img src="/_posts/img/1534470247984.png" alt="Alt text"><br>总结</p>
+<ol>
+<li>如果沿着x轴平移就是水平方向</li>
+<li>沿着y轴平移就是垂直方向</li>
+<li>沿着z轴平移就是前后方向</li>
+</ol>
+<h3 id="三维旋转"><a href="#三维旋转" class="headerlink" title="三维旋转"></a>三维旋转</h3><ul>
+<li>x轴为水平方向的轴,  <strong>上下反转</strong></li>
+</ul>
+<p><img src="/_posts/img/1534556455834.png" alt="Alt text"></p>
+<ul>
+<li>y轴为垂直方向的轴   <strong>左右旋转</strong></li>
+</ul>
+<p><img src="/_posts/img/1534556483158.png" alt="Alt text"></p>
+<ul>
+<li>z轴为前后方向的轴(理解为眼睛到屏幕的轴) <strong>顺时针或逆时针</strong></li>
+</ul>
+<p><img src="/_posts/img/1534556503060.png" alt="Alt text"></p>
+<p>总结</p>
+<ol>
+<li>X轴：左右方向</li>
+<li>Y轴：上下方向</li>
+<li>Z轴：前后方向</li>
+</ol>
+<h3 id="transform的视距perspective"><a href="#transform的视距perspective" class="headerlink" title="transform的视距perspective"></a>transform的视距perspective</h3><p>模拟一个镜头排出物体的变化在展示到屏幕上(三维透视)</p>
+<p>如果需要代码中的三维变换能有一些效果,那么就需要加视距(视觉距离)属性才能有比较好的立体效果<br>近大远小<br><code>transform: perspective(&#39;视距值&#39;);</code></p>
+<p>浏览器默认没有开启(3D效果)需手动<br><code>transform-style: preserve-3d;</code></p>
+<p>代码块<br><figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- </span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    为了更好的3D效果，一个视距就够了</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    视距加在父盒子上会效果更好</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    但是注意：加在父盒子上，不要用transform来加，用perspective直接加</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"> --&gt;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">        ul &#123;</span></span><br><span class="line"><span class="xml">            list-style: none;</span></span><br><span class="line"><span class="xml">            padding: 0;</span></span><br><span class="line"><span class="xml">            width: 600px;</span></span><br><span class="line"><span class="xml">            height: 200px;</span></span><br><span class="line"><span class="xml">            border: 1px solid #000;</span></span><br><span class="line"><span class="xml">            margin: 50px auto;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        li &#123;</span></span><br><span class="line"><span class="xml">            width: 180px;</span></span><br><span class="line"><span class="xml">            height: 180px;</span></span><br><span class="line"><span class="xml">            background-color: yellowgreen;</span></span><br><span class="line"><span class="xml">            float: left;</span></span><br><span class="line"><span class="xml">            margin-left: 15px;</span></span><br><span class="line"><span class="xml">            margin-top: 10px;</span></span><br><span class="line"><span class="xml">            transition: all 1s;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">        </span></span><br><span class="line"><span class="xml">        /* 第一个ul是视距加在每个li身上 */</span></span><br><span class="line"><span class="xml">        ul:first-child li&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            transform: perspective(500px);</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        ul:first-child:hover li&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            transform: perspective(500px) rotateY(90deg)</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        /* 把视距不加在每个li身上，而只是父盒子身上（也就是加在UL上） */</span></span><br><span class="line"><span class="xml">        ul:last-child&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            /* 如果视距加在父盒子身上，那么不能用transform给，而应该直接复制perspetive属性 */  </span></span><br><span class="line"><span class="xml">            perspective: 500px;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        ul:last-child:hover li&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            transform: rotateY(90deg);</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>注意:<br>默认情况下，消失点位于元素的中心，但是可以通过设置perspective-origin属性来改变其位置。</p>
+<ul>
+<li>视距加载父元素和子元素的区别<ul>
+<li>为了更好的3D效果,一个视距就够了</li>
+<li>视距加在父盒子上效果会更好</li>
+<li>注意: 加载父盒子上,不要用transform来加,用perspective</li>
+</ul>
+</li>
+</ul>
+<p>总结</p>
+<ol>
+<li>近大远小的效果,越近效果越明显</li>
+<li>3D开发是视距一定要加载不动的父元素上,才能看到上帝视角,小技巧:一个一个往上加</li>
+<li>浏览器默认没有开起3D效果(看3D效果必须开启)<br><code>transform-style: preserve-3d;</code></li>
+</ol>
+<h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><blockquote>
+<p>是CSS3中的一个属性,要用之前,需要先制定一个动画剧本</p>
+</blockquote>
+<p>使用transition做动画的缺点</p>
+<ol>
+<li>无法自动启动</li>
+<li>不能设置次数</li>
+</ol>
+<p>animation动画剧本<br><figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">@keyframes swimming&#123;</span></span><br><span class="line"><span class="xml">         from&#123;&#125;</span></span><br><span class="line"><span class="xml">         to&#123;</span></span><br><span class="line"><span class="xml">             background-position-y: -1386px;</span></span><br><span class="line"><span class="xml">         &#125;</span></span><br><span class="line"><span class="xml">     &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>animation</p>
+<ol>
+<li>参数1: 动画名</li>
+<li>参数2: 动画的持续时间</li>
+<li>参数3: 延迟时间</li>
+<li>参数4: 动画次数</li>
+<li>参数5: 动画效果</li>
+<li>参数6: 是否保持动画最终效果,默认是恢复原状,<strong>forwards</strong>是不恢复原状</li>
+<li>参数7: 动画方向,:<ol start="8">
+<li>normal默认值,</li>
+<li>reverse: 瞬间先变成最终动画效果,然后再还原动画效果</li>
+<li><strong>alernate</strong> 从初始样子到动画的最终效果,然后放回初始效果,</li>
+</ol>
+</li>
+<li>参数8: 是否暂停动画,默认值<code>running</code>,暂停paused<strong>paused</strong>暂停</li>
+</ol>
+<p><code>animation: play 2s infinite alternate;</code></p>
+<figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">        .box &#123;</span></span><br><span class="line"><span class="xml">            width: 100px;</span></span><br><span class="line"><span class="xml">            height: 100px;</span></span><br><span class="line"><span class="xml">            background-color: red;</span></span><br><span class="line"><span class="xml">            /* </span></span><br><span class="line"><span class="xml">                参数1：动画名</span></span><br><span class="line"><span class="xml">                参数2：动画的持续时间</span></span><br><span class="line"><span class="xml">                参数3：延迟时间</span></span><br><span class="line"><span class="xml">                参数4：动画次数 可以写具体的数字，也可以写infinite，代表无限次</span></span><br><span class="line"><span class="xml">                参数5：动画效果 ease,ease-in,linear,steps</span></span><br><span class="line"><span class="xml">                </span></span><br><span class="line"><span class="xml">                参数6：是否要保持为动画最终效果，默认是恢复原状，不想恢复原状，就写一个forwards</span></span><br><span class="line"><span class="xml">                参数7：动画方向：  normal是默认值： 就是从元素本身的样子用动画效果变成动画最终的样子</span></span><br><span class="line"><span class="xml">                                  reverse：瞬间先变成动画最终样子，然后用动画效果恢复成默认样子</span></span><br><span class="line"><span class="xml">                                  alernate：从初始样子用动画效果变成动画的最终样子，并且又用动画效果返回成最初样子</span></span><br><span class="line"><span class="xml">                                     要用的话，最多只用alernate</span></span><br><span class="line"><span class="xml">                                  alternate-reverse：跟上面相反</span></span><br><span class="line"><span class="xml">                参数8：一般不会用，要用也只是单独使用</span></span><br><span class="line"><span class="xml">                        是继续动画，还是暂停动画</span></span><br><span class="line"><span class="xml">                            running：运行动画默认值</span></span><br><span class="line"><span class="xml">                            paused：暂停动画</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">                臣妾记不住顺序啊！写100次，就记住了</span></span><br><span class="line"><span class="xml">                第二：顺序随便乱写！都可以用</span></span><br><span class="line"><span class="xml">                    但是有两个时间，写在前面一定是动画持续时间，写在后面的一定是延迟时间</span></span><br><span class="line"><span class="xml">            */</span></span><br><span class="line"><span class="xml">            /* animation: scale 1s infinite  linear forwards alternate; */</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            /* animation:  alternate 1s infinite scale forwards linear ; */</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            animation:scale 2s infinite alternate;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        .box:hover&#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            /* 暂停动画 */</span></span><br><span class="line"><span class="xml">            animation-play-state: paused;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">      </span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        @keyframes scale &#123;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            from &#123;&#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">            to &#123;</span></span><br><span class="line"><span class="xml">                width: 300px;</span></span><br><span class="line"><span class="xml">                height: 300px;</span></span><br><span class="line"><span class="xml">            &#125;</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>注意<br>不用注意animation的书写顺序,但是有两个关于时间的参数,写在前面是持续时间,后面的是延迟时间</p>
+<ul>
+<li>animation的from<br>设置动画的初始状态,动画开始的时候会瞬间变成这里写的样子,在开始动画</li>
+</ul>
+<p>animation如果有多个动画 用都好隔开,除了transform用空格隔开</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/JavaScript函数及作用域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1732,7 +2244,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1743,7 +2255,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
