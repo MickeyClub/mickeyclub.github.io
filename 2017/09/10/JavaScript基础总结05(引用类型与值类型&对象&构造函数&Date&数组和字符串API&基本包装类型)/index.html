@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaScript基础总结05(引用类型与值类型&amp;amp;对象&amp;amp;构造函数&amp;amp;Date&amp;amp;数组和字符串API&amp;amp;基本包装类型)1. 引用类型与值类型区别 引用类型(复杂数据类型): Array Object 数据存储在堆中,地址存储在栈中   值类型(基本数据类型): String Number Boolean Undefined Null 数据存储在栈中    2. 对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript基础(流程控制)">
+<meta property="og:url" content="http://yoursite.com/2017/09/10/JavaScript基础总结05(引用类型与值类型&对象&构造函数&Date&数组和字符串API&基本包装类型)/index.html">
+<meta property="og:site_name" content="ZhangMingQin&#39;s Blog">
+<meta property="og:description" content="JavaScript基础总结05(引用类型与值类型&amp;amp;对象&amp;amp;构造函数&amp;amp;Date&amp;amp;数组和字符串API&amp;amp;基本包装类型)1. 引用类型与值类型区别 引用类型(复杂数据类型): Array Object 数据存储在堆中,地址存储在栈中   值类型(基本数据类型): String Number Boolean Undefined Null 数据存储在栈中    2. 对">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-05T09:14:57.410Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript基础(流程控制)">
+<meta name="twitter:description" content="JavaScript基础总结05(引用类型与值类型&amp;amp;对象&amp;amp;构造函数&amp;amp;Date&amp;amp;数组和字符串API&amp;amp;基本包装类型)1. 引用类型与值类型区别 引用类型(复杂数据类型): Array Object 数据存储在堆中,地址存储在栈中   值类型(基本数据类型): String Number Boolean Undefined Null 数据存储在栈中    2. 对">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/10/JavaScript基础总结05(引用类型与值类型&对象&构造函数&Date&数组和字符串API&基本包装类型)/"/>
+
+
+
+
+
+  <title>JavaScript基础(流程控制) | ZhangMingQin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangMingQin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录自己学习、思考、总结、分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/JavaScript基础总结05(引用类型与值类型&对象&构造函数&Date&数组和字符串API&基本包装类型)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张铭钦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangMingQin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript基础(流程控制)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T16:20:43+08:00">
+                2017-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript基础总结05-引用类型与值类型-amp-对象-amp-构造函数-amp-Date-amp-数组和字符串API-amp-基本包装类型"><a href="#JavaScript基础总结05-引用类型与值类型-amp-对象-amp-构造函数-amp-Date-amp-数组和字符串API-amp-基本包装类型" class="headerlink" title="JavaScript基础总结05(引用类型与值类型&amp;对象&amp;构造函数&amp;Date&amp;数组和字符串API&amp;基本包装类型)"></a>JavaScript基础总结05(引用类型与值类型&amp;对象&amp;构造函数&amp;Date&amp;数组和字符串API&amp;基本包装类型)</h1><h3 id="1-引用类型与值类型区别"><a href="#1-引用类型与值类型区别" class="headerlink" title="1. 引用类型与值类型区别"></a>1. 引用类型与值类型区别</h3><ul>
+<li>引用类型(复杂数据类型): Array Object<ul>
+<li>数据存储在堆中,地址存储在栈中</li>
+</ul>
+</li>
+<li>值类型(基本数据类型): String Number Boolean Undefined Null<ul>
+<li>数据存储在栈中</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-对象"><a href="#2-对象" class="headerlink" title="2. 对象"></a>2. 对象</h3><blockquote>
+<p>用于描述生活中的某个具体的事物的特征和行为</p>
+</blockquote>
+<p>属性:  用于描述对象的特征<br>方法:  用于描述对象的行为</p>
+<h4 id="2-1-基本使用"><a href="#2-1-基本使用" class="headerlink" title="2.1 基本使用"></a>2.1 基本使用</h4><ul>
+<li><p>语法:  </p>
+<ul>
+<li>构造函数声明: <code>var 对象名 = new Object();</code></li>
+<li>直面量方式: <code>var 对象名 = {};</code></li>
+</ul>
+</li>
+<li><p>对象取值与赋值</p>
+<ul>
+<li>点语法:  对象名.属性名</li>
+<li>字符串语法: 对象名[‘属性名]’<h4 id="2-2-遍历对象的属性"><a href="#2-2-遍历对象的属性" class="headerlink" title="2,2 遍历对象的属性"></a>2,2 遍历对象的属性</h4>语法:  <code>for(var key in 对象名) {  }</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> teacher)&#123;</span><br><span class="line">    <span class="comment">//key是一个属性名的字符串</span></span><br><span class="line">    <span class="built_in">console</span>.log ( key );</span><br><span class="line">    <span class="comment">/*注意：只能通过字符串语法来取值*/</span></span><br><span class="line">    <span class="built_in">console</span>.log ( teacher[key] );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-使用构造函数创建对象"><a href="#3-使用构造函数创建对象" class="headerlink" title="3. 使用构造函数创建对象"></a>3. 使用构造函数创建对象</h3><blockquote>
+<p>如果调用一个函数的时候使用了new关键字,那么这个函数就是构造函数</p>
+</blockquote>
+<p>new关键字原理</p>
+<ol>
+<li>在内存中开辟空间,创建一个空对象</li>
+<li>将this指向这个对象</li>
+<li>进行对象赋值</li>
+<li>返回对象</li>
+</ol>
+<p>使用构造函数需要注意的点</p>
+<ol>
+<li>通常函数名首字母大写，用于区分普通函数</li>
+<li>必须要使用new关键字来调用</li>
+<li>.手动在函数内return造成的影响<ol start="4">
+<li>如果 return 基本数据类型 ： 无效，还是会返回默认对象</li>
+<li>如果 return 复杂数据类型 ： 有效，会覆盖默认的对象</li>
+</ol>
+</li>
+</ol>
+<h3 id="4-Date对象"><a href="#4-Date对象" class="headerlink" title="4. Date对象"></a>4. Date对象</h3><blockquote>
+<p>获取当前时间</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//Date对象：获取时间</span></span><br><span class="line">    <span class="comment">//1.声明Date对象</span></span><br><span class="line">    <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">    <span class="built_in">console</span>.log ( date );<span class="comment">//date对象在打印的时候会自动转成字符串打印</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.转成本地时间</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.toLocaleTimeString () );</span><br><span class="line">    <span class="built_in">console</span>.log ( date.toTimeString () );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.获取时间中的年月日，时分秒</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getFullYear () );<span class="comment">//2018</span></span><br><span class="line">    <span class="comment">//月范围  0-11  表示1-12月</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getMonth () );<span class="comment">//5   6月</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getDate () );<span class="comment">//24</span></span><br><span class="line">    <span class="comment">//day 星期   0-6   星期天-星期六</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getDay () );<span class="comment">//0</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getHours () );<span class="comment">//时</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getMinutes () );<span class="comment">//分</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getSeconds () );<span class="comment">//秒</span></span><br><span class="line">    <span class="built_in">console</span>.log ( date.getMilliseconds () );<span class="comment">//毫秒</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//4.手动创建一个日期</span></span><br><span class="line">    <span class="keyword">var</span> date1 = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2020</span>,<span class="number">2</span>,<span class="number">22</span>,<span class="number">18</span>,<span class="number">30</span>,<span class="number">35</span>);</span><br><span class="line">    <span class="built_in">console</span>.log ( date1 );</span><br><span class="line">    <span class="built_in">console</span>.log ( <span class="keyword">new</span> <span class="built_in">Date</span> ( <span class="string">"2022-05-06 12:03:35"</span> ) );</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-数组对象常用的API"><a href="#5-数组对象常用的API" class="headerlink" title="5. 数组对象常用的API"></a>5. 数组对象常用的API</h3><ol>
+<li>连接数组:concat()</li>
+<li>将数组元素拼接成字符串:join()</li>
+<li>删除数组最后一个元素:pop()</li>
+<li>往数组后面添加元素:push()</li>
+<li>翻转数组:reverse()</li>
+<li>删除数组第一个元素:shift()</li>
+<li>查找数组元素:slice()</li>
+<li>数组排序:sort()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//只要声明了一个数组，那么这个数组就拥有所有的API</span></span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">88</span>,<span class="number">90</span>,<span class="number">100</span>,<span class="number">66</span>,<span class="number">25</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//1.将两个数组连成一个数组</span></span><br><span class="line">    <span class="built_in">console</span>.log ( arr.concat ( [ <span class="number">90</span>, <span class="number">100</span>, <span class="number">200</span> ] ) );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.将数组中所有的元素拼接成一个字符串</span></span><br><span class="line">    <span class="built_in">console</span>.log ( arr.join () );<span class="comment">//'88,90,100,66,25'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.删除并返回数组的最后一个元素</span></span><br><span class="line">    <span class="keyword">var</span> last =  arr.pop();<span class="comment">//  arr.length--</span></span><br><span class="line">    <span class="built_in">console</span>.log ( arr );</span><br><span class="line">    <span class="built_in">console</span>.log ( last );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4.往数组后面添加一个元素</span></span><br><span class="line">    arr.push ( <span class="number">65</span> ) ;<span class="comment">//arr[arr.lenth] = 65</span></span><br><span class="line">    <span class="built_in">console</span>.log ( arr );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//5.翻转数组</span></span><br><span class="line">    <span class="built_in">console</span>.log ( arr.reverse () );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//6.删除并返回数组的第一个元素</span></span><br><span class="line">    arr.shift();</span><br><span class="line">    <span class="built_in">console</span>.log ( arr );<span class="comment">//[66, 100, 90, 88]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//7.返回数组中执行位置的元素</span></span><br><span class="line">    <span class="comment">//arr.slice(start,end);     start &lt;= 范围 &lt; end</span></span><br><span class="line">    <span class="keyword">var</span> newArr =  arr.slice(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">console</span>.log ( newArr );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//8.数组排序:参数是一个回调函数</span></span><br><span class="line">  <span class="keyword">var</span> newArr =   arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//return a - b;//从小到大</span></span><br><span class="line">      <span class="keyword">return</span> b - a;<span class="comment">//从大到小</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="built_in">console</span>.log ( newArr );</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-String对象"><a href="#6-String对象" class="headerlink" title="6. String对象"></a>6. String对象</h3><ul>
+<li>字符串恒定性:<ul>
+<li>字符串不可以被修改的</li>
+<li>般调用字符串api的时候使用新的变量来接收</li>
+</ul>
+</li>
+<li>字符串恒定性原理:<ul>
+<li>1.在内存中有一块专门的内存空间区域负责存储字符串(字符串常量区)</li>
+<li>2.(缓存机制)当我们声明一个字符串的时候，编译器会先去这个区域寻找有没有该字符串，如果有就直接取出来，没有就新开辟空间</li>
+<li>3.这块内存空间中的字符串一旦被创建，是不可以被修改的</li>
+</ul>
+</li>
+</ul>
+<p>字符串常用API</p>
+<ol>
+<li>获取字符串长度:str.length</li>
+<li>获取字符串某一个下标字符:str.charAt()</li>
+<li>拼接字符串:str.concat</li>
+<li>判断字符串中是否包含某些字符串:str.indexOf()</li>
+<li>截取字符串:str.substr()</li>
+<li>修改字符串:str.replace()</li>
+<li>大小写转换:str.toLowerCase()小写 str.toUpperCase()大写</li>
+<li>分隔字符串：str.split()</li>
+</ol>
+<h3 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h3><blockquote>
+<p>主要是为了让基本数据类型也可以调用对象的方法</p>
+</blockquote>
+<ul>
+<li>基本数据的对象类型<ul>
+<li>string对象: <code>new String()</code></li>
+<li>number对象: <code>new Number()</code></li>
+<li>boolean对象: <code>new Boolean()</code></li>
+</ul>
+</li>
+</ul>
+<p>对开发者影响不大，当我们在使用字符串的api的时候，编译器会自动帮我们转换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;<span class="comment">//为了可以让number这个数据类型能够调用对象的方法，编译器会自动帮我们转成对象(基本包装类型)</span></span><br><span class="line"><span class="comment">// 编译器帮我们做了一件事：  var num = new Number()</span></span><br><span class="line">num.toString();</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/05/JavaScript基础总结03(数组)/" rel="next" title="JavaScript基础(流程控制)">
+                <i class="fa fa-chevron-left"></i> JavaScript基础(流程控制)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/01/画出自适应皮卡丘/" rel="prev" title="画出自适应皮卡丘">
+                画出自适应皮卡丘 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张铭钦</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript基础总结05-引用类型与值类型-amp-对象-amp-构造函数-amp-Date-amp-数组和字符串API-amp-基本包装类型"><span class="nav-number">1.</span> <span class="nav-text">JavaScript基础总结05(引用类型与值类型&amp;对象&amp;构造函数&amp;Date&amp;数组和字符串API&amp;基本包装类型)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-引用类型与值类型区别"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 引用类型与值类型区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-对象"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-基本使用"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">2.1 基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-遍历对象的属性"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2,2 遍历对象的属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用构造函数创建对象"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 使用构造函数创建对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Date对象"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. Date对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-数组对象常用的API"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 数组对象常用的API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-String对象"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. String对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本包装类型"><span class="nav-number">1.0.7.</span> <span class="nav-text">基本包装类型</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张铭钦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

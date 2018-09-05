@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JavaScript函数及作用域1. 函数 函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余   函数声明：function 函数名((){ //代码块 }  函数名其实就是变量名，只是习惯上称之为函数名   调用函数（执行函数的代码块）: 函数名(()   函数表达式: var fn = function() {}; 2. 函数传参 函数的参数的传递本质：实参给形参赋值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript函数及作用域">
+<meta property="og:url" content="http://yoursite.com/2017/08/10/JavaScript函数及作用域/index.html">
+<meta property="og:site_name" content="ZhangMingQin&#39;s Blog">
+<meta property="og:description" content="JavaScript函数及作用域1. 函数 函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余   函数声明：function 函数名((){ //代码块 }  函数名其实就是变量名，只是习惯上称之为函数名   调用函数（执行函数的代码块）: 函数名(()   函数表达式: var fn = function() {}; 2. 函数传参 函数的参数的传递本质：实参给形参赋值">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/作用域链.png">
+<meta property="og:updated_time" content="2018-09-05T08:57:45.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript函数及作用域">
+<meta name="twitter:description" content="JavaScript函数及作用域1. 函数 函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余   函数声明：function 函数名((){ //代码块 }  函数名其实就是变量名，只是习惯上称之为函数名   调用函数（执行函数的代码块）: 函数名(()   函数表达式: var fn = function() {}; 2. 函数传参 函数的参数的传递本质：实参给形参赋值">
+<meta name="twitter:image" content="http://yoursite.com/img/作用域链.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/10/JavaScript函数及作用域/"/>
+
+
+
+
+
+  <title>JavaScript函数及作用域 | ZhangMingQin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangMingQin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录自己学习、思考、总结、分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/10/JavaScript函数及作用域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张铭钦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangMingQin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript函数及作用域</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T20:35:43+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript函数及作用域"><a href="#JavaScript函数及作用域" class="headerlink" title="JavaScript函数及作用域"></a>JavaScript函数及作用域</h1><h3 id="1-函数"><a href="#1-函数" class="headerlink" title="1. 函数"></a>1. 函数</h3><blockquote>
+<p>函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余</p>
+</blockquote>
+<ul>
+<li><p>函数声明：<code>function 函数名((){ //代码块 }</code></p>
+<ul>
+<li>函数名其实就是变量名，只是习惯上称之为函数名</li>
+</ul>
+</li>
+<li><p>调用函数（执行函数的代码块）: <code>函数名(()</code></p>
+</li>
+</ul>
+<p>函数表达式: <code>var fn = function() {};</code></p>
+<h3 id="2-函数传参"><a href="#2-函数传参" class="headerlink" title="2. 函数传参"></a>2. 函数传参</h3><blockquote>
+<p>函数的参数的传递本质：实参给形参赋值</p>
+</blockquote>
+<ul>
+<li>函数名(实际参数，简称实参)</li>
+<li><p>函数声明 <code>function 函数名(形式参数，简称形参){  函数体代码  }</code></p>
+</li>
+<li><p>调用函数 函数名(实际参数，简称实参)</p>
+</li>
+</ul>
+<h3 id="3-函数返回值"><a href="#3-函数返回值" class="headerlink" title="3. 函数返回值"></a>3. 函数返回值</h3><blockquote>
+<p>函数将自身的计算结果返回给调用者</p>
+</blockquote>
+<p>return返回值时</p>
+<ol>
+<li>如果一个函数没有return关键字，默认返回值是undefined</li>
+<li>如果一个函数有return关键字，但是后面没有值，返回值是undefined</li>
+<li>return关键字后面的代码都不会执行</li>
+<li>如果return关键字后面有值,此时函数的返回值就是return后面的值</li>
+</ol>
+<p>函数的几种形态:</p>
+<ul>
+<li>无参无返回函数：用的不多   <ul>
+<li>单纯的执行一段代码</li>
+</ul>
+</li>
+<li>无参有返回函数：用的不多</li>
+<li>有参无返回：用的不多的</li>
+<li>有参有返回值：用的比较多    <ul>
+<li>函数接收调用者传递的参数来进行运算来实现自己的功能，然后将实现后的结果返回给调用者</li>
+</ul>
+</li>
+</ul>
+<h3 id="函数的"><a href="#函数的" class="headerlink" title="函数的"></a>函数的</h3><h3 id="4-作用域"><a href="#4-作用域" class="headerlink" title="4. 作用域"></a>4. 作用域</h3><blockquote>
+<p>变量起作用的范围</p>
+</blockquote>
+<ul>
+<li>全局作用域<ul>
+<li>变量在任何地方起作用,在函数外声明</li>
+</ul>
+</li>
+<li>局部作用域<ul>
+<li>变量只在函数内部起作用,在函数内部声明<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.全局变量</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params">  </span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log ( a );  <span class="comment">//10</span></span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.局部变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span> (<span class="params">  </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="built_in">console</span>.log ( num );  <span class="comment">//100</span></span><br><span class="line">&#125;</span><br><span class="line">fn1();</span><br><span class="line"><span class="built_in">console</span>.log ( num );  <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-作用域链"><a href="#5-作用域链" class="headerlink" title="5. 作用域链"></a>5. 作用域链</h3><ul>
+<li>作用域这么来的<ul>
+<li>默认情况下，我们的js代码处于全局作用域，当我们声明一个函数时，此时函数体会开辟一个局部作用域， 如果我们在这个函数体中又声明一个函数，那么又会开辟一个新的局部作用域，以此类推，就会形成一个作用域链</li>
+</ul>
+</li>
+<li>变量在作用域链上的访问规则<ul>
+<li>就近原则：访问变量时，会优先访问的是在自己作用域链上声明的变量，如果自己作用域链上没有声明这个变量，那么就往上一级去找有没有声明这个变量，如果有就访问，如果没有就继续往上找有没有声明，直到找到0级作用域链上，如果有，就访问，如果没有就报错</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/作用域链.png" alt="Alt text"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">/*1.作用域链由来：默认情况下，变量处在全局作用域（0级链），声明一个函数，会开辟一个局部作用域（1级链），</span></span><br><span class="line"><span class="comment">    如果在该函数中又声明一个函数，则会形成一个新的局部作用域（2级链）</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    2.变量在作用域的访问原则：就近原则</span></span><br><span class="line"><span class="comment">        * 解释：访问变量时，首先会从自身所在的作用域查看是否声明，如果有声明则是该变量。如果没有声明，则会从父级</span></span><br><span class="line"><span class="comment">       作用域查看是否声明，如果有则是该变量，以此类推，如果父级没有，则继续往父级找，一直找到0级链，如果0级链还是没有</span></span><br><span class="line"><span class="comment">       则程序报错</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">10</span>;<span class="comment">//0级</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span> (<span class="params">  </span>) </span>&#123;<span class="comment">//0级，函数变量名自身还是0级的</span></span><br><span class="line">        <span class="comment">//局部作用域</span></span><br><span class="line">         <span class="keyword">var</span> num = <span class="number">20</span>;<span class="comment">//1级链</span></span><br><span class="line">        <span class="built_in">console</span>.log ( <span class="string">'fn1:'</span> + num );</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn2</span> (<span class="params">  </span>) </span>&#123;<span class="comment">//1级链，fn2自身还是在fn1的作用域下声明的</span></span><br><span class="line">            <span class="comment">//局部作用域</span></span><br><span class="line">            <span class="keyword">var</span> num = <span class="number">30</span>;<span class="comment">//2级链</span></span><br><span class="line">            <span class="built_in">console</span>.log ( <span class="string">'fn2:'</span> + num );</span><br><span class="line">        &#125;</span><br><span class="line">        fn2();</span><br><span class="line">    &#125;</span><br><span class="line">    fn1();</span><br><span class="line">    <span class="built_in">console</span>.log ( <span class="string">'函数外'</span> + num );</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-js预解析"><a href="#6-js预解析" class="headerlink" title="6. js预解析"></a>6. js预解析</h3><ul>
+<li>预解析机制:<ul>
+<li>js在执行代码之前,会把变量的声明提升到所在作用域的最顶端<ul>
+<li>将变量声明提前（相当于提前开辟内存空间），变量的赋值与函数的调用还是在原地</li>
+<li>函数的声明也会提前</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>好处:<br>让函数可以在任何地方被调用</p>
+<p>注意:<br>如果一个变量在声明的时候没有使用var,改变量无论写在声明位置都是全局的,不参与预解析 </p>
+<p>### </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/01/JavaScript基础总结01(运算符&数据类型&Math对象)/" rel="next" title="JavaScript的运算符&数据类型&Math对象">
+                <i class="fa fa-chevron-left"></i> JavaScript的运算符&数据类型&Math对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/02/JavaScript基础总结02(流程控制)/" rel="prev" title="JavaScript基础(流程控制)">
+                JavaScript基础(流程控制) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张铭钦</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript函数及作用域"><span class="nav-number">1.</span> <span class="nav-text">JavaScript函数及作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-函数"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-函数传参"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 函数传参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-函数返回值"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 函数返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的"><span class="nav-number">1.0.4.</span> <span class="nav-text">函数的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-作用域"><span class="nav-number">1.0.5.</span> <span class="nav-text">4. 作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-作用域链"><span class="nav-number">1.0.6.</span> <span class="nav-text">5. 作用域链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-js预解析"><span class="nav-number">1.0.7.</span> <span class="nav-text">6. js预解析</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张铭钦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
