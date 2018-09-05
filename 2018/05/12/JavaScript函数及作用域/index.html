@@ -86,12 +86,12 @@
 <meta property="og:site_name" content="ZhangMingQin&#39;s Blog">
 <meta property="og:description" content="JavaScript函数及作用域[TOC] 1. 函数 函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余   函数声明：function 函数名((){ //代码块 }  函数名其实就是变量名，只是习惯上称之为函数名   调用函数（执行函数的代码块）: 函数名(()   函数表达式: var fn = function() {}; 2. 函数传参 函数的参数的传递本质：实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/作用域链.png">
-<meta property="og:updated_time" content="2018-09-05T02:53:06.786Z">
+<meta property="og:image" content="http://yoursite.com/img/作用域链.png">
+<meta property="og:updated_time" content="2018-09-05T08:31:45.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript函数及作用域">
 <meta name="twitter:description" content="JavaScript函数及作用域[TOC] 1. 函数 函数就是将一段代码存到变量中，要用的时候就拿出来执行，这样可以避免代码冗余   函数声明：function 函数名((){ //代码块 }  函数名其实就是变量名，只是习惯上称之为函数名   调用函数（执行函数的代码块）: 函数名(()   函数表达式: var fn = function() {}; 2. 函数传参 函数的参数的传递本质：实">
-<meta name="twitter:image" content="http://yoursite.com/作用域链.png">
+<meta name="twitter:image" content="http://yoursite.com/img/作用域链.png">
 
 
 
@@ -394,7 +394,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/作用域链.png" alt="Alt text"></p>
+<p><img src="/img/作用域链.png" alt="Alt text"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">/*1.作用域链由来：默认情况下，变量处在全局作用域（0级链），声明一个函数，会开辟一个局部作用域（1级链），</span></span><br><span class="line"><span class="comment">    如果在该函数中又声明一个函数，则会形成一个新的局部作用域（2级链）</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    2.变量在作用域的访问原则：就近原则</span></span><br><span class="line"><span class="comment">        * 解释：访问变量时，首先会从自身所在的作用域查看是否声明，如果有声明则是该变量。如果没有声明，则会从父级</span></span><br><span class="line"><span class="comment">       作用域查看是否声明，如果有则是该变量，以此类推，如果父级没有，则继续往父级找，一直找到0级链，如果0级链还是没有</span></span><br><span class="line"><span class="comment">       则程序报错</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">10</span>;<span class="comment">//0级</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span> (<span class="params">  </span>) </span>&#123;<span class="comment">//0级，函数变量名自身还是0级的</span></span><br><span class="line">        <span class="comment">//局部作用域</span></span><br><span class="line">         <span class="keyword">var</span> num = <span class="number">20</span>;<span class="comment">//1级链</span></span><br><span class="line">        <span class="built_in">console</span>.log ( <span class="string">'fn1:'</span> + num );</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn2</span> (<span class="params">  </span>) </span>&#123;<span class="comment">//1级链，fn2自身还是在fn1的作用域下声明的</span></span><br><span class="line">            <span class="comment">//局部作用域</span></span><br><span class="line">            <span class="keyword">var</span> num = <span class="number">30</span>;<span class="comment">//2级链</span></span><br><span class="line">            <span class="built_in">console</span>.log ( <span class="string">'fn2:'</span> + num );</span><br><span class="line">        &#125;</span><br><span class="line">        fn2();</span><br><span class="line">    &#125;</span><br><span class="line">    fn1();</span><br><span class="line">    <span class="built_in">console</span>.log ( <span class="string">'函数外'</span> + num );</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="6-js预解析"><a href="#6-js预解析" class="headerlink" title="6. js预解析"></a>6. js预解析</h3><ul>
 <li>预解析机制:<ul>
@@ -442,10 +442,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/13/html5day02/" rel="prev" title="JavaScript函数及作用域">
-                JavaScript函数及作用域 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
