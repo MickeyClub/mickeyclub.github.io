@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Ajax的同源&amp;amp;跨域Ajax名词解释 Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。                 —– 摘自百度百科  说人话：可以让网页某个局部部分动态地给服务器发起请求，而不用整个页面刷新。是一种可以局部发请求的技术   1. 原生ajax技术实现：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZhangMingQin&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/index.html">
+<meta property="og:site_name" content="ZhangMingQin&#39;s Blog">
+<meta property="og:description" content="Ajax的同源&amp;amp;跨域Ajax名词解释 Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。                 —– 摘自百度百科  说人话：可以让网页某个局部部分动态地给服务器发起请求，而不用整个页面刷新。是一种可以局部发请求的技术   1. 原生ajax技术实现：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="d:/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/20180801-AJAX%E7%AC%AC%E4%B8%80%E5%A4%A9_Ajax%E3%80%81json%E3%80%81XML/01_%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90/Part03Day07_ajax%E4%BD%BF%E7%94%A8/media/1525960269427.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524476169312.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524476795561.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524478019298.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524531439034.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524533356664.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524533792418.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/media/1524534767555.png">
+<meta property="og:updated_time" content="2018-09-14T08:48:02.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ZhangMingQin&#39;s Blog">
+<meta name="twitter:description" content="Ajax的同源&amp;amp;跨域Ajax名词解释 Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。                 —– 摘自百度百科  说人话：可以让网页某个局部部分动态地给服务器发起请求，而不用整个页面刷新。是一种可以局部发请求的技术   1. 原生ajax技术实现：">
+<meta name="twitter:image" content="d:/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/20180801-AJAX%E7%AC%AC%E4%B8%80%E5%A4%A9_Ajax%E3%80%81json%E3%80%81XML/01_%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90/Part03Day07_ajax%E4%BD%BF%E7%94%A8/media/1525960269427.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/"/>
+
+
+
+
+
+  <title> | ZhangMingQin's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangMingQin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录自己学习、思考、总结、分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/模板引擎、跨域、JSONP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张铭钦">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangMingQin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T16:48:02+08:00">
+                2018-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Ajax的同源-amp-跨域"><a href="#Ajax的同源-amp-跨域" class="headerlink" title="Ajax的同源&amp;跨域"></a>Ajax的同源&amp;跨域</h1><h3 id="Ajax名词解释"><a href="#Ajax名词解释" class="headerlink" title="Ajax名词解释"></a>Ajax名词解释</h3><ul>
+<li><p>Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。                 —– 摘自百度百科</p>
+</li>
+<li><p><strong>说人话</strong>：可以让网页某个局部部分动态地给服务器发起请求，而不用整个页面刷新。是一种可以局部发请求的技术</p>
+</li>
+</ul>
+<h2 id="1-原生ajax技术实现："><a href="#1-原生ajax技术实现：" class="headerlink" title="1. 原生ajax技术实现："></a>1. 原生ajax技术实现：</h2><blockquote>
+<p>学习JS原生方式做异步请求</p>
+</blockquote>
+<h3 id="1-1-XMLHttpRequest对象"><a href="#1-1-XMLHttpRequest对象" class="headerlink" title="1.1 XMLHttpRequest对象"></a>1.1 XMLHttpRequest对象</h3><ul>
+<li>本质：是一个系统内置对象。专门用来发起局部请求的对象。一般会被简称为XHR</li>
+</ul>
+<h3 id="1-2-请求报文"><a href="#1-2-请求报文" class="headerlink" title="1.2 请求报文"></a>1.2 请求报文</h3><ul>
+<li><p>一次请求三大部分：请求行、请求头、请求体（请求正文）</p>
+<p><img src="D:/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/20180801-AJAX%E7%AC%AC%E4%B8%80%E5%A4%A9_Ajax%E3%80%81json%E3%80%81XML/01_%E6%95%99%E5%AD%A6%E8%B5%84%E6%BA%90/Part03Day07_ajax%E4%BD%BF%E7%94%A8/media/1525960269427.png" alt="1525960269427"></p>
+</li>
+</ul>
+<h3 id="1-3-使用XHR发get请求"><a href="#1-3-使用XHR发get请求" class="headerlink" title="1.3 使用XHR发get请求"></a>1.3 使用XHR发get请求</h3><blockquote>
+<p>XMLHttpRequest就是个专门用来发局部请求的对象，而一个请求就包含<strong>请求行、请求头、请求体</strong>这几部分，所以我们也需要依次对这个对象设置这些内容</p>
+</blockquote>
+<ul>
+<li>创建XMLHttpRequest：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：xhr只是我们起的实例名字，实际使用可以自己起，但推荐使用xhr，一看就知道是一个请求对象</p>
+</blockquote>
+<ul>
+<li>设置请求行：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数1：类似于表单中的method属性</span></span><br><span class="line"><span class="comment">//参数2：类似于表单中的action属性</span></span><br><span class="line">xhr.open(<span class="string">'请求方式'</span>,<span class="string">'请求地址'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//例：</span></span><br><span class="line"><span class="comment">//使用get请求，请求服务器的test.php页面</span></span><br><span class="line">xhr.open(<span class="string">'get'</span>,<span class="string">'./test.php'</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置请求头（get请求一般不设置）：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xhr.setRequestHeader(键，值);</span><br><span class="line"><span class="comment">//例：</span></span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'text/html'</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>发送请求（设置请求体）：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xhr.send(请求体内容);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：如果是get请求，一般小括号里为空，什么都不写（get请求没有请求体），如果是post请求，就在小括号里加请求体内容（后面会专门针对post做案例）</p>
+</blockquote>
+<h3 id="1-4-获得响应正文"><a href="#1-4-获得响应正文" class="headerlink" title="1.4 获得响应正文"></a>1.4 获得响应正文</h3><blockquote>
+<p>根据学过的http协议我们知道，当发送请求报文后，其本质是为了从服务器拿到响应正文。那么ajax如何拿？</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当响应体回来了会调用此方法</span></span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//当此函数调用时，这个属性里保存的就是响应正文</span></span><br><span class="line">	xhr.responseText;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为什么要用事件形式？</p>
+<p>​    发送请求是一个网络操作，而受网络环境影响，可能会有延迟。我们不知道什么时候才能得到响应正文。所以最好用事件的形式，一旦接收到响应正文自动触发事件。</p>
+</blockquote>
+<h3 id="1-5-总结ajax代码步骤："><a href="#1-5-总结ajax代码步骤：" class="headerlink" title="1.5 总结ajax代码步骤："></a>1.5 总结ajax代码步骤：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 创建请求对象</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//2. 设置请求行</span></span><br><span class="line">xhr.open(<span class="string">'get'</span>,<span class="string">'./test.php'</span>);</span><br><span class="line"><span class="comment">//注：get请求可以不用设置请求头</span></span><br><span class="line"><span class="comment">//3. 发送请求</span></span><br><span class="line">xhr.send();</span><br><span class="line"><span class="comment">//4. 拿到响应体</span></span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-同源-amp-跨域"><a href="#2-同源-amp-跨域" class="headerlink" title="2. 同源&amp;跨域"></a>2. 同源&amp;跨域</h2><h3 id="2-1-名词解释"><a href="#2-1-名词解释" class="headerlink" title="2.1 名词解释"></a>2.1 名词解释</h3><ul>
+<li>同源：<ul>
+<li>协议头、域名、端口完全一致就叫同源</li>
+</ul>
+</li>
+<li>跨域：<ul>
+<li>协议头、域名、端口有一个不一样就叫跨域</li>
+</ul>
+</li>
+<li>判断是否同源，如下：</li>
+</ul>
+<p>如：<a href="http://www.example.com/detail.html" target="_blank" rel="noopener">http://www.example.com/detail.html</a> 与以下地址对比</p>
+<table>
+<thead>
+<tr>
+<th>对比地址</th>
+<th>是否同源</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://api.example.com/detail.html" target="_blank" rel="noopener">http://api.example.com/detail.html</a></td>
+<td>不同源</td>
+<td>域名不同</td>
+</tr>
+<tr>
+<td><a href="https://www.example.com/detail.html" target="_blank" rel="noopener">https://www.example.com/detail.html</a></td>
+<td>不同源</td>
+<td>协议不同</td>
+</tr>
+<tr>
+<td><a href="http://www.example.com:8080/detail.html" target="_blank" rel="noopener">http://www.example.com:8080/detail.html</a></td>
+<td>不同源</td>
+<td>端口不同</td>
+</tr>
+<tr>
+<td><a href="http://api.example.com:8080/detail.html" target="_blank" rel="noopener">http://api.example.com:8080/detail.html</a></td>
+<td>不同源</td>
+<td>域名、端口不同</td>
+</tr>
+<tr>
+<td><a href="https://api.example.com/detail.html" target="_blank" rel="noopener">https://api.example.com/detail.html</a></td>
+<td>不同源</td>
+<td>协议、域名不同</td>
+</tr>
+<tr>
+<td><a href="https://www.example.com:8080/detail.html" target="_blank" rel="noopener">https://www.example.com:8080/detail.html</a></td>
+<td>不同源</td>
+<td>端口、协议不同</td>
+</tr>
+<tr>
+<td><a href="http://www.example.com/other.html" target="_blank" rel="noopener">http://www.example.com/other.html</a></td>
+<td>同源</td>
+<td>只是目录不同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-2-跨域的影响"><a href="#2-2-跨域的影响" class="headerlink" title="2.2 跨域的影响"></a>2.2 跨域的影响</h3><ul>
+<li>注：根据同源和跨域的意思，以后讲  <code>跨域</code>  就是指  <code>不同源</code></li>
+<li>如果要在  <code>localhost/test.html</code>  这个网站上访问  <code>http://api.douban.com/v2/movie/top250</code> 这个接口，那么浏览器会出现以下错误：</li>
+</ul>
+<p><img src="media/1524476169312.png" alt="1524476169312"></p>
+<blockquote>
+<p>原因：浏览器本身从安全角度考虑，不支持<strong>跨域</strong>访问</p>
+</blockquote>
+<h2 id="3-JSONP"><a href="#3-JSONP" class="headerlink" title="3. JSONP"></a>3. JSONP</h2><h3 id="3-1-研究如何突破跨域请求限制"><a href="#3-1-研究如何突破跨域请求限制" class="headerlink" title="3.1 研究如何突破跨域请求限制"></a>3.1 研究如何突破跨域请求限制</h3><h4 id="3-1-1-使用img标签（拿不到响应体）"><a href="#3-1-1-使用img标签（拿不到响应体）" class="headerlink" title="3.1.1 使用img标签（拿不到响应体）"></a>3.1.1 使用img标签（拿不到响应体）</h4><ul>
+<li>我们知道：<code>img</code> 标签，有个 <code>href</code> 属性，这个属性其实也是向服务器发送请求，我们看看这种方式是否可以跨越访问，代码如下：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">href</span>=<span class="string">"http://api.douban.com/v2/movie/top250"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时可以看到能正确收到响应，但拿不到响应体（返回的JSON数据），如图：</li>
+</ul>
+<p><img src="media/1524476795561.png" alt="1524476795561"></p>
+<h4 id="3-1-2-使用link标签（拿不到响应体）"><a href="#3-1-2-使用link标签（拿不到响应体）" class="headerlink" title="3.1.2 使用link标签（拿不到响应体）"></a>3.1.2 使用link标签（拿不到响应体）</h4><ul>
+<li><code>link</code> 标签，有个  <code>src</code>  属性，我们以前是用来外联css样式，其实它也是相当于发送请求</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">src</span>=<span class="string">"http://api.douban.com/v2/movie/top250"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>看浏览器响应报文，可以发现link标签也可以跨域请求，但是一样，没办法拿到响应体</li>
+</ul>
+<h4 id="3-1-3-使用script标签（曲线拿到响应体）"><a href="#3-1-3-使用script标签（曲线拿到响应体）" class="headerlink" title="3.1.3 使用script标签（曲线拿到响应体）"></a>3.1.3 使用script标签（曲线拿到响应体）</h4><ul>
+<li>代码如下：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">json</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'我被调用了'</span>);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(json);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://api.douban.com/v2/movie/top250?callback=test"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果如下图</li>
+</ul>
+<p><img src="media/1524478019298.png" alt="1524478019298"></p>
+<blockquote>
+<p>说明：我们可以看到，我们预先定义了一个函数叫test，再然后在src里加了一个参数callback=test，可以发现，当请求完成，会自动调用test这个函数，并且把响应体（JSON数据）当做参数传递过来</p>
+</blockquote>
+<h3 id="3-2-使用script标签拿到JSON数据详解"><a href="#3-2-使用script标签拿到JSON数据详解" class="headerlink" title="3.2 使用script标签拿到JSON数据详解"></a>3.2 使用script标签拿到JSON数据详解</h3><h4 id="3-2-1-script导入外部文件作用"><a href="#3-2-1-script导入外部文件作用" class="headerlink" title="3.2.1 script导入外部文件作用"></a>3.2.1 script导入外部文件作用</h4><ul>
+<li>使用script导入外部文件时，默认会把文件内容当JS代码执行，例：</li>
+<li>新建  <code>1.txt</code> 文件，文件内容如下：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="string">'你好'</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建  <code>index.html</code>  文件，核心代码如下：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"1.txt"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>结果：</p>
+<p><img src="media/1524531439034.png" alt="1524531439034"></p>
+</li>
+</ul>
+<blockquote>
+<p>结论：script导入文件会默认把文件内容当JS代码执行，跟文件格式无关</p>
+</blockquote>
+<h4 id="3-2-2-script标签曲线拿到响应体原理"><a href="#3-2-2-script标签曲线拿到响应体原理" class="headerlink" title="3.2.2 script标签曲线拿到响应体原理"></a>3.2.2 script标签曲线拿到响应体原理</h4><ul>
+<li>新建  <code>index.html</code>  页面，代码如下</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//声明一个success函数</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params">obj</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(obj);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- script导入文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://www.demo.com/top250.php"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建  <code>top250.php</code> 页面，代码如下</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">"success('hello')"</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>结果</p>
+<p><img src="media/1524533356664.png" alt="1524533356664"></p>
+</li>
+</ul>
+<blockquote>
+<p>说明：请求的top250文件里，服务器最终返回的是 success(‘hello’); 这个当JS代码执行时，是调用函数并传递参数hello的语法，因此可以看到success函数被调用，并且打印了参数hello</p>
+</blockquote>
+<ul>
+<li>图解：</li>
+</ul>
+<p><img src="media/1524533792418.png" alt="1524533792418"></p>
+<blockquote>
+<p>思考：如果在上例中，把success函数的参数换成json对象，会怎样？</p>
+</blockquote>
+<ul>
+<li>修改 <code>top250.php</code>  代码，如下:</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$data = <span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'jack'</span>,<span class="string">'age'</span>=&gt;<span class="number">16</span>,<span class="string">'gender'</span>=&gt;<span class="string">'true'</span> );</span><br><span class="line"></span><br><span class="line">$json = json_encode($data);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"success(&#123;$json&#125;)"</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>再次访问网页可以发现，打印的参数就编程了json对象</p>
+<p><img src="media/1524534767555.png" alt="1524534767555"></p>
+</li>
+</ul>
+<blockquote>
+<p> 结论：script标签拿到JSON数据的原理就是在服务器端写 <strong>调用浏览器端函数的语法</strong> ，然后把JSON数据当参数传递过去</p>
+</blockquote>
+<blockquote>
+<p>思考：现在服务端代码这么写，如果要解决跨域问题，是不是每个浏览器端都要准备一个名叫success的函数？能让浏览器端自己指定吗？怎么指定？</p>
+</blockquote>
+<ul>
+<li>请求数据时加参数，修改  <code>index.html</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//声明函数</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">myFunc</span>(<span class="params">obj</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(obj);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 请求数据，并加入callback参数，值为myFunc --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://www.demo.com/top250.php?callback=myFunc"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时，除了请求  <code>top250.php</code> 外，还传递了个  <code>callback</code>  的参数过去，修改  <code>top250.php</code>，拿到这个参数</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//拿到传递过来的参数，即函数名</span></span><br><span class="line">    $funcName = $_GET[<span class="string">'callback'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//准备数据</span></span><br><span class="line">    $data = <span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'jack'</span>,<span class="string">'age'</span>=&gt;<span class="number">16</span>,<span class="string">'gender'</span>=&gt;<span class="keyword">true</span> );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//转化为JSON</span></span><br><span class="line">    $json = json_encode($data);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//传过来的是什么函数名，就调用什么函数</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"$funcName($json)"</span>; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>结果：此时就完成了指定函数名让服务器调用传参的效果了。</p>
+<p>这就是之前  <code>跨域</code>  拿豆瓣数据的原理，即服务器端调用浏览器端的函数，把参数传递过来即可</p>
+</blockquote>
+<h3 id="3-3-JSONP概念总结"><a href="#3-3-JSONP概念总结" class="headerlink" title="3.3 JSONP概念总结"></a>3.3 JSONP概念总结</h3><ul>
+<li><p><strong>JSONP</strong>：</p>
+<ul>
+<li><strong>JSON</strong> with <strong>P</strong>adding，是一种借助于 <code>script</code> 标签发送跨域请求的技巧方案。</li>
+</ul>
+</li>
+<li><p>它不是一套新技术，只是聪明的程序员想出的一套方案</p>
+</li>
+<li><p>能不能用这套方案，要看服务器端代码怎么写，服务器端如果写了调用函数的代码，那么就能支持JSONP方案</p>
+</li>
+<li><p>以后服务器的接口会有接口文档进行说明是否支持  <strong>JSONP</strong></p>
+</li>
+<li><p>建议：不要随意使用别人的接口，特别是别人写的支持jsonp的接口</p>
+<p>例:<a href="https://developers.douban.com/wiki/?title=api_v2" target="_blank" rel="noopener">https://developers.douban.com/wiki/?title=api_v2</a></p>
+</li>
+</ul>
+<h2 id="4-CORS"><a href="#4-CORS" class="headerlink" title="4. CORS"></a>4. CORS</h2><ul>
+<li>Cross Origin Resource Share，跨域资源共享</li>
+<li>直接从服务器端解决ajax无法跨域访问的问题（可以不要用jsonp了）</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 允许远端访问</span></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin: *'</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 这种方案无需客户端作出任何变化（客户端不用改代码），只是在服务端添加一个 <code>Access-Control-Allow-Origin</code> 的响应头，表示这个资源是否允许指定域请求（*代表任何网站都可以访问）。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/14/Ajax封装、jQuery中的ajax/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张铭钦</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ajax的同源-amp-跨域"><span class="nav-number">1.</span> <span class="nav-text">Ajax的同源&amp;跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax名词解释"><span class="nav-number">1.0.1.</span> <span class="nav-text">Ajax名词解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原生ajax技术实现："><span class="nav-number">1.1.</span> <span class="nav-text">1. 原生ajax技术实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-XMLHttpRequest对象"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 XMLHttpRequest对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-请求报文"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 请求报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-使用XHR发get请求"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 使用XHR发get请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-获得响应正文"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 获得响应正文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-总结ajax代码步骤："><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 总结ajax代码步骤：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-同源-amp-跨域"><span class="nav-number">1.2.</span> <span class="nav-text">2. 同源&amp;跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-名词解释"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 名词解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-跨域的影响"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 跨域的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JSONP"><span class="nav-number">1.3.</span> <span class="nav-text">3. JSONP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-研究如何突破跨域请求限制"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 研究如何突破跨域请求限制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-使用img标签（拿不到响应体）"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">3.1.1 使用img标签（拿不到响应体）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-使用link标签（拿不到响应体）"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">3.1.2 使用link标签（拿不到响应体）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-使用script标签（曲线拿到响应体）"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.1.3 使用script标签（曲线拿到响应体）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-使用script标签拿到JSON数据详解"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 使用script标签拿到JSON数据详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-script导入外部文件作用"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">3.2.1 script导入外部文件作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-script标签曲线拿到响应体原理"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">3.2.2 script标签曲线拿到响应体原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-JSONP概念总结"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 JSONP概念总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CORS"><span class="nav-number">1.4.</span> <span class="nav-text">4. CORS</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张铭钦</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
